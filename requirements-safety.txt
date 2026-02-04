@@ -5,7 +5,7 @@
 
 # Safety & rate limiting
 limits>=3.0.0
-redis-py-cluster>=2.1.0
+# Note: redis-py-cluster removed - redis>=4.1.0 has built-in cluster support
 
 # PII detection
 presidio-analyzer>=2.2.0
