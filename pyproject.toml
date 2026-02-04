@@ -5,10 +5,51 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "aria"
 version = "0.1.0"
-description = "Adaptive Reasoning & Intelligent Automation - Personal AI Assistant"
+description = "🤖 Production-grade Agentic AI Framework | Vision + LLM + Event Sourcing | Local LLMs | LangGraph | HITL Safety"
 readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "MIT" }
+keywords = [
+    "agentic-ai",
+    "llm",
+    "langgraph",
+    "automation",
+    "ai-agent",
+    "autonomous-agent",
+    "vision-language-model",
+    "event-sourcing",
+    "local-llm",
+    "ollama",
+    "langchain",
+    "rag",
+    "production-ready",
+    "cognitive-architecture",
+]
+authors = [
+    { name = "Mahdi Navaei", email = "mahdinavaei1367@gmail.com" }
+]
+maintainers = [
+    { name = "Mahdi Navaei", email = "mahdinavaei1367@gmail.com" }
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Software Development :: Libraries :: Application Frameworks",
+]
+project-urls = {
+    "Homepage" = "https://github.com/MahdiNavaei/aria",
+    "Documentation" = "https://github.com/MahdiNavaei/aria/tree/main/Docs/English",
+    "Repository" = "https://github.com/MahdiNavaei/aria",
+    "Issues" = "https://github.com/MahdiNavaei/aria/issues",
+}
 
 dependencies = [
     # Orchestration
