@@ -13,6 +13,9 @@
 [![Tests](https://img.shields.io/badge/tests-81%20total%20%7C%2077%20passed-success?style=for-the-badge&logo=pytest)](tests/)
 [![Code Style: Ruff](https://img.shields.io/badge/code%20style-ruff-000000?style=for-the-badge)](https://github.com/astral-sh/ruff)
 
+[![Docker](https://img.shields.io/badge/Docker-mahdinavaei%2Faria-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://hub.docker.com/r/mahdinavaei/aria)
+[![Hugging Face](https://img.shields.io/badge/🤗%20Hugging%20Face-Space-orange?style=for-the-badge)](https://huggingface.co/spaces/MadhiNavaei/aria)
+
 [![LangGraph](https://img.shields.io/badge/LangGraph-Orchestration-blue?style=flat-square)](https://github.com/langchain-ai/langgraph)
 [![Kafka](https://img.shields.io/badge/Kafka-Event%20Sourcing-231F20?style=flat-square&logo=apachekafka)](https://kafka.apache.org/)
 [![Redis](https://img.shields.io/badge/Redis-State%20Store-DC382D?style=flat-square&logo=redis)](https://redis.io/)
