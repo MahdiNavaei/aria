@@ -8,12 +8,9 @@ RUN apt-get update && apt-get install -y \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
-COPY pyproject.toml README.md ./
-COPY src/ ./src/
-COPY vendor/ ./vendor/
-
-RUN pip install --no-cache-dir build && \
-    pip wheel --no-cache-dir --wheel-dir /wheels ".[safety]"
+COPY requirements.txt requirements-safety.txt ./
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir -r requirements-safety.txt
 
 # Runtime stage
 FROM python:3.11-slim
@@ -36,9 +33,8 @@ RUN apt-get update && apt-get install -y \
     libasound2 \
     && rm -rf /var/lib/apt/lists/*
 
-COPY --from=builder /wheels /wheels
-RUN pip install --no-cache-dir /wheels/*.whl && \
-    rm -rf /wheels
+COPY --from=builder /usr/local/lib/python3.11/site-packages /usr/local/lib/python3.11/site-packages
+COPY --from=builder /usr/local/bin /usr/local/bin
 
 RUN playwright install chromium
 
