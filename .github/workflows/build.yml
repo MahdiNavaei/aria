@@ -15,19 +15,19 @@ jobs:
         uses: docker/setup-buildx-action@v3
 
       - name: Login to Docker Hub
-        continue-on-error: true
+        if: ${{ secrets.DOCKER_USERNAME != '' && secrets.DOCKER_PASSWORD != '' }}
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build Docker image
+      - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
           context: .
-          push: ${{ secrets.DOCKER_USERNAME != '' }}
+          push: ${{ secrets.DOCKER_USERNAME != '' && secrets.DOCKER_PASSWORD != '' }}
           tags: |
-            ${{ secrets.DOCKER_USERNAME != '' && format('{0}/aria:{1}', secrets.DOCKER_USERNAME, github.ref_name) || format('aria:{0}', github.ref_name) }}
-            ${{ secrets.DOCKER_USERNAME != '' && format('{0}/aria:latest', secrets.DOCKER_USERNAME) || format('aria:{0}', github.ref_name) }}
+            ${{ secrets.DOCKER_USERNAME != '' && format('{0}/aria:{1}', secrets.DOCKER_USERNAME, github.ref_name) || 'aria:local' }}
+            ${{ secrets.DOCKER_USERNAME != '' && format('{0}/aria:latest', secrets.DOCKER_USERNAME) || 'aria:local' }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
