@@ -1,0 +1,26 @@
+eye:
+  screenshot:
+    dir: data/screenshots
+    format: png
+    quality: 85
+    max_storage_mb: 500
+
+  vlm:
+    model: aria-eye
+    model_file: Qwen3-VL-4B-Thinking-Qwen3VL-4B-Thinking-Q4_K_M.gguf
+    mmproj_file: Qwen3-VL-4B-Thinking-mmproj-Qwen3VL-4B-Thinking-F16.gguf
+    max_tokens: 1000
+    temperature: 0.1
+
+    ocr_persian:
+      model: aria-eye-ocr-persian
+      model_file: mohajesmaeiliQwen3-VL-2B-Persian-Arabic-Ocr-v1.0.safetensors
+
+    fallback:
+      model: ministral-3b-vision
+      model_file: Ministral-3-3B-Reasoning-2512-heretic-Q8_0.gguf
+      mmproj_file: Ministral-3-3B-Reasoning-2512-heretic-mmproj-bf16.gguf
+
+  uiref:
+    storage_dir: data/artifacts/uirefs
+    confidence_threshold: 0.3

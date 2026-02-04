@@ -1,0 +1,93 @@
+[project]
+name = "openadapt"
+version = "1.0.0"
+description = "GUI automation with ML - record, train, deploy, evaluate"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+authors = [
+    {name = "Richard Abrich", email = "richard@openadapt.ai"}
+]
+keywords = ["gui", "automation", "ml", "rpa", "agent", "vlm", "computer-use"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+# Minimal base - just the CLI
+dependencies = [
+    "click>=8.0.0",
+]
+
+[project.optional-dependencies]
+# Individual packages
+capture = [
+    "openadapt-capture>=0.1.0",
+]
+ml = [
+    "openadapt-ml>=0.2.0",
+]
+evals = [
+    "openadapt-evals>=0.1.0",
+]
+viewer = [
+    "openadapt-viewer>=0.1.0",
+]
+grounding = [
+    "openadapt-grounding>=0.1.0",
+]
+retrieval = [
+    "openadapt-retrieval>=0.1.0",
+]
+privacy = [
+    "openadapt-privacy>=0.1.0",
+]
+# Bundles
+core = [
+    "openadapt[capture,ml,evals,viewer]",
+]
+all = [
+    "openadapt[core,grounding,retrieval,privacy]",
+]
+dev = [
+    "pytest>=8.0.0",
+    "ruff>=0.1.0",
+]
+
+[project.scripts]
+openadapt = "openadapt.cli:main"
+
+[project.urls]
+Homepage = "https://openadapt.ai"
+Documentation = "https://docs.openadapt.ai"
+Repository = "https://github.com/OpenAdaptAI/openadapt"
+"Bug Tracker" = "https://github.com/OpenAdaptAI/openadapt/issues"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["openadapt"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W"]
+ignore = ["E501"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+filterwarnings = [
+    "ignore::DeprecationWarning",
+]

@@ -1,0 +1,21 @@
+job_apply:
+  sources:
+    - linkedin
+    - indeed
+    - company_sites
+
+  matching:
+    min_score: 70
+    auto_apply_threshold: 85
+
+  linkedin:
+    easy_apply_only: false
+    max_applications_per_day: 50
+
+  form_filling:
+    use_skyvern: true
+    fallback_to_manual: true
+
+  profiles_dir: data/profiles
+  jobs_dir: data/jobs
+  applications_dir: data/applications

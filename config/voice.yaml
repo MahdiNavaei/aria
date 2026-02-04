@@ -1,0 +1,13 @@
+﻿voice:
+  enabled: true
+
+  stt:
+    primary: nezamisafa/whisper-persian-v4
+    files:
+      - whisper-persian-v4-model-00001-of-00002.safetensors
+      - whisper-persian-v4-model-00002-of-00002.safetensors
+    audio_model: Qwen2-Audio-7B-Instruct
+
+  use_cases:
+    - voice_commands
+    - voice_chat

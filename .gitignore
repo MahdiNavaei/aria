@@ -1,0 +1,62 @@
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# IDEs and editors
+.vscode/
+.idea/
+*.swp
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Build artifacts
+dist/
+build/
+*.egg-info/
+
+# Logs
+*.log
+logs/
+
+# Data and local databases
+data/
+artifacts/
+*.db
+*.sqlite
+
+# Vendor nested git
+vendor/*/.git/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Secrets
+*.pem
+*.key
+credentials.json
+
+# LLM Models (too large for Git)
+*.gguf
+*.safetensors
+*.bin
+*.pt
+*.pth
+models/
+.ollama/
+*.onnx
+*.h5
+*.ckpt
+# Ollama models directory (default locations)
+~/.ollama/models/
+E:/Programs/.ollama/models/

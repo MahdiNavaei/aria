@@ -1,0 +1,56 @@
+﻿# Allowed domains for job_apply
+job_apply:
+  allowed:
+    # LinkedIn
+    - "*.linkedin.com"
+    - "www.linkedin.com"
+    - "jobs.linkedin.com"
+
+    # Indeed
+    - "*.indeed.com"
+    - "www.indeed.com"
+    - "secure.indeed.com"
+
+    # Glassdoor
+    - "*.glassdoor.com"
+    - "www.glassdoor.com"
+
+    # Greenhouse
+    - "boards.greenhouse.io"
+    - "*.greenhouse.io"
+
+    # Lever
+    - "jobs.lever.co"
+    - "*.lever.co"
+
+    # Workday
+    - "*.myworkdayjobs.com"
+    - "*.wd5.myworkdayjobs.com"
+
+    # Taleo
+    - "*.taleo.net"
+
+    # SmartRecruiters
+    - "jobs.smartrecruiters.com"
+    - "*.smartrecruiters.com"
+
+    # Jobinja (Iran)
+    - "jobinja.ir"
+    - "www.jobinja.ir"
+
+    # IranTalent
+    - "irantalent.com"
+    - "www.irantalent.com"
+
+  read_only:
+    - "*.google.com"
+    - "*.bing.com"
+
+# Always blocked domains
+global_denylist:
+  - "*.bank.*"
+  - "*.payment.*"
+  - "paypal.com"
+  - "stripe.com"
+  - "*admin*"
+  - "*login*password*"

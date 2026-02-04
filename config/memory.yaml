@@ -1,0 +1,39 @@
+memory:
+  provider: mem0
+
+  mem0:
+    vector_store:
+      provider: qdrant
+      config:
+        host: localhost
+        port: 6333
+        collection_name: aria_memories
+
+    embedder:
+      provider: sentence_transformers
+      config:
+        model_name: PartAI/Tooka-SBERT-V2-Large
+        embedding_dims: 1024
+        max_sequence_length: 512
+        persian_support: true
+      fallback:
+        provider: sentence_transformers
+        model_name: PartAI/Tooka-SBERT
+
+    llm:
+      provider: ollama
+      config:
+        model: aria-brain
+        temperature: 0.1
+
+  tiers:
+    working:
+      backend: redis
+      ttl: 3600
+      max_items: 100
+    episodic:
+      backend: mem0
+      retention_days: 90
+    semantic:
+      backend: mem0
+      retention_days: -1

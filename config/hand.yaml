@@ -1,0 +1,17 @@
+hand:
+  browser:
+    headless: false
+    slow_mo: 50
+    timeout: 30000
+    viewport:
+      width: 1280
+      height: 720
+
+  desktop:
+    fail_safe: true
+    pause: 0.1
+
+  adapters:
+    - browser
+    - desktop
+    - ml

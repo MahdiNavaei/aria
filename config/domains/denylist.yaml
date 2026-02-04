@@ -1,0 +1,7 @@
+﻿domains:
+  - "*.bank.*"
+  - "*.payment.*"
+  - "paypal.com"
+  - "stripe.com"
+  - "*admin*"
+  - "*login*password*"

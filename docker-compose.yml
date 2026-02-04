@@ -1,0 +1,133 @@
+services:
+  redpanda:
+    image: redpandadata/redpanda:v24.1.1
+    container_name: aria-redpanda
+    command:
+      - redpanda
+      - start
+      - --smp
+      - "1"
+      - --memory
+      - "1G"
+      - --overprovisioned
+      - --node-id
+      - "0"
+      - --check=false
+      - --kafka-addr
+      - PLAINTEXT://0.0.0.0:9092
+      - --advertise-kafka-addr
+      - PLAINTEXT://localhost:9092
+      - --rpc-addr
+      - 0.0.0.0:33145
+      - --advertise-rpc-addr
+      - redpanda:33145
+      - --schema-registry-addr
+      - 0.0.0.0:8081
+    ports:
+      - "9092:9092"
+      - "8081:8081"
+      - "9644:9644"
+    volumes:
+      - redpanda-data:/var/lib/redpanda/data
+    healthcheck:
+      test: ["CMD-SHELL", "rpk cluster health --api-urls=localhost:9644 | grep -q Healthy"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+    env_file:
+      - .env
+    networks:
+      - aria-network
+
+  redpanda-console:
+    image: redpandadata/console:v2.4.0
+    container_name: aria-redpanda-console
+    ports:
+      - "8080:8080"
+    environment:
+      - KAFKA_BROKERS=redpanda:9092
+      - REDPANDA_ADMIN_API=redpanda:9644
+      - KAFKA_SCHEMAREGISTRY_ENABLED=true
+      - KAFKA_SCHEMAREGISTRY_URLS=http://redpanda:8081
+    depends_on:
+      redpanda:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:8080/ > /dev/null"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+    env_file:
+      - .env
+    networks:
+      - aria-network
+
+  redis:
+    image: redis:7.2-alpine
+    container_name: aria-redis
+    ports:
+      - "6379:6379"
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    env_file:
+      - .env
+    networks:
+      - aria-network
+
+  redisinsight:
+    image: redis/redisinsight:latest
+    container_name: aria-redisinsight
+    ports:
+      - "5540:5540"
+    depends_on:
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:5540/ > /dev/null"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+    env_file:
+      - .env
+    networks:
+      - aria-network
+
+  qdrant:
+    image: qdrant/qdrant:v1.7.4
+    container_name: aria-qdrant
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    environment:
+      - QDRANT__SERVICE__GRPC_PORT=6334
+    volumes:
+      - qdrant-data:/qdrant/storage
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:6333/readyz > /dev/null"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+    env_file:
+      - .env
+    networks:
+      - aria-network
+
+networks:
+  aria-network:
+    driver: bridge
+
+volumes:
+  redpanda-data:
+  redis-data:
+  qdrant-data:

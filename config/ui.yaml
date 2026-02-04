@@ -1,0 +1,16 @@
+﻿ui:
+  host: 0.0.0.0
+  port: 8501
+  theme: light
+
+  features:
+    live_browser_view: true
+    hitl_panel: true
+    activity_log: true
+    chat_interface: true
+
+  screenshot_streaming:
+    enabled: true
+    interval_ms: 1000
+    quality: 50
+    max_width: 1280

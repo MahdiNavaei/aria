@@ -1,0 +1,58 @@
+# Envirionment
+.env
+config.json
+data
+
+# Python
+__pycache__
+.cache
+*.egg-info
+*~
+.venv
+
+# Vim
+*.sw[m-p]
+
+# db
+*.db
+*.db-journal
+
+# VSCode
+.VSCode
+.vsCode
+
+# Idea
+.idea
+
+# Generated performance charts
+performance
+
+# Generated when adding editable dependencies in requirements.txt (-e)
+src
+
+# MacOS file
+.DS_Store
+
+*.pyc
+*.pt
+
+dist/
+build/
+
+OpenAdapt.spec
+build_scripts/OpenAdapt.iss
+
+# Temporary files
+install.sh
+*.txt
+output.png
+
+# Legacy untracked directories (not part of repo)
+omnimcp/
+omnimcp.bak/
+performance/
+
+# Secrets (should never be committed)
+*.pem
+.env.backup
+deploy/.env

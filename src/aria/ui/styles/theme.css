@@ -1,0 +1,790 @@
+/* ==========================================================================
+   ARIA Design System - theme.css
+   Modern, Professional, Bilingual-Ready
+   Version: 2.0
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Font Imports
+   -------------------------------------------------------------------------- */
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap");
+@import url("https://cdn.jsdelivr.net/npm/vazirmatn@33.0.3/Vazirmatn-font-face.css");
+
+/* --------------------------------------------------------------------------
+   2. CSS Custom Properties (Design Tokens)
+   -------------------------------------------------------------------------- */
+:root {
+  /* ===== Colors - Light Theme ===== */
+  --color-bg-primary: #FAFAFA;
+  --color-bg-secondary: #F5F5F5;
+  --color-bg-tertiary: #EFEFEF;
+  --color-bg-card: #FFFFFF;
+  --color-bg-elevated: #FFFFFF;
+  --color-bg-hover: rgba(0, 0, 0, 0.04);
+  --color-bg-active: rgba(0, 0, 0, 0.08);
+  
+  --color-text-primary: #1A1A1A;
+  --color-text-secondary: #6B7280;
+  --color-text-muted: #9CA3AF;
+  --color-text-inverse: #FFFFFF;
+  --color-text-link: #2563EB;
+  
+  /* Brand Colors */
+  --color-accent-primary: #D97706;
+  --color-accent-primary-hover: #B45309;
+  --color-accent-secondary: #0D9488;
+  --color-accent-secondary-hover: #0F766E;
+  --color-accent-tertiary: #7C3AED;
+  --color-accent-tertiary-hover: #6D28D9;
+  
+  /* Semantic Colors */
+  --color-success: #059669;
+  --color-success-bg: rgba(5, 150, 105, 0.1);
+  --color-warning: #D97706;
+  --color-warning-bg: rgba(217, 119, 6, 0.1);
+  --color-error: #DC2626;
+  --color-error-bg: rgba(220, 38, 38, 0.1);
+  --color-info: #2563EB;
+  --color-info-bg: rgba(37, 99, 235, 0.1);
+  
+  /* Borders */
+  --color-border-light: rgba(0, 0, 0, 0.06);
+  --color-border-medium: rgba(0, 0, 0, 0.12);
+  --color-border-heavy: rgba(0, 0, 0, 0.24);
+  --color-border-focus: var(--color-accent-primary);
+  
+  /* ===== Typography ===== */
+  --font-family-en: "Space Grotesk", "Inter", system-ui, -apple-system, sans-serif;
+  --font-family-fa: "Vazirmatn", "Tahoma", sans-serif;
+  --font-family-mono: "JetBrains Mono", "Fira Code", "Consolas", monospace;
+  
+  --font-size-xs: 0.75rem;     /* 12px */
+  --font-size-sm: 0.875rem;    /* 14px */
+  --font-size-base: 1rem;      /* 16px */
+  --font-size-lg: 1.125rem;    /* 18px */
+  --font-size-xl: 1.25rem;     /* 20px */
+  --font-size-2xl: 1.5rem;     /* 24px */
+  --font-size-3xl: 1.875rem;   /* 30px */
+  --font-size-4xl: 2.25rem;    /* 36px */
+  
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+  
+  --letter-spacing-tight: -0.02em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.02em;
+  
+  /* ===== Spacing ===== */
+  --space-0: 0;
+  --space-1: 0.25rem;    /* 4px */
+  --space-2: 0.5rem;     /* 8px */
+  --space-3: 0.75rem;    /* 12px */
+  --space-4: 1rem;       /* 16px */
+  --space-5: 1.25rem;    /* 20px */
+  --space-6: 1.5rem;     /* 24px */
+  --space-8: 2rem;       /* 32px */
+  --space-10: 2.5rem;    /* 40px */
+  --space-12: 3rem;      /* 48px */
+  --space-16: 4rem;      /* 64px */
+  --space-20: 5rem;      /* 80px */
+  
+  /* ===== Border Radius ===== */
+  --radius-none: 0;
+  --radius-sm: 0.375rem;   /* 6px */
+  --radius-md: 0.5rem;     /* 8px */
+  --radius-lg: 0.75rem;    /* 12px */
+  --radius-xl: 1rem;       /* 16px */
+  --radius-2xl: 1.5rem;    /* 24px */
+  --radius-full: 9999px;
+  
+  /* ===== Shadows ===== */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.2);
+  --shadow-inner: inset 0 2px 4px rgba(0, 0, 0, 0.04);
+  --shadow-glow: 0 0 20px rgba(217, 119, 6, 0.25);
+  --shadow-glow-success: 0 0 20px rgba(5, 150, 105, 0.25);
+  --shadow-glow-error: 0 0 20px rgba(220, 38, 38, 0.25);
+  
+  /* ===== Transitions ===== */
+  --transition-fast: 100ms ease;
+  --transition-normal: 200ms ease;
+  --transition-slow: 300ms ease;
+  --transition-slower: 500ms ease;
+  
+  /* ===== Z-Index Scale ===== */
+  --z-base: 0;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-fixed: 300;
+  --z-modal-backdrop: 400;
+  --z-modal: 500;
+  --z-popover: 600;
+  --z-tooltip: 700;
+  --z-toast: 800;
+}
+
+/* --------------------------------------------------------------------------
+   3. Base Styles
+   -------------------------------------------------------------------------- */
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body,
+[data-testid="stAppViewContainer"],
+[data-testid="stApp"] {
+  background: linear-gradient(
+    135deg,
+    var(--color-bg-primary) 0%,
+    var(--color-bg-secondary) 50%,
+    var(--color-bg-tertiary) 100%
+  );
+  color: var(--color-text-primary);
+  font-family: var(--font-family-en);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+}
+
+[data-testid="stAppViewContainer"] {
+  padding: var(--space-4) var(--space-6) var(--space-8);
+}
+
+/* --------------------------------------------------------------------------
+   4. Typography
+   -------------------------------------------------------------------------- */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-tight);
+  line-height: var(--line-height-tight);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-3);
+}
+
+h1 { font-size: var(--font-size-3xl); }
+h2 { font-size: var(--font-size-2xl); }
+h3 { font-size: var(--font-size-xl); }
+h4 { font-size: var(--font-size-lg); }
+h5 { font-size: var(--font-size-base); }
+h6 { font-size: var(--font-size-sm); }
+
+p {
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+  margin-bottom: var(--space-4);
+}
+
+a {
+  color: var(--color-text-link);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+code, pre, .stCode, [data-testid="stCode"] {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-sm);
+}
+
+/* Streamlit title overrides */
+[data-testid="stMarkdownContainer"] h1 {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--space-2);
+}
+
+[data-testid="stMarkdownContainer"] h2 {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-secondary);
+}
+
+.stCaption, [data-testid="stCaption"] {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+/* --------------------------------------------------------------------------
+   5. Cards & Containers
+   -------------------------------------------------------------------------- */
+.card,
+.stMetric,
+[data-testid="stMetricValue"] {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  box-shadow: var(--shadow-sm);
+  transition: 
+    box-shadow var(--transition-normal),
+    transform var(--transition-normal),
+    border-color var(--transition-normal);
+}
+
+.card:hover,
+.stMetric:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+  border-color: var(--color-border-medium);
+}
+
+/* Metric styling */
+[data-testid="stMetricLabel"] {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-medium);
+}
+
+[data-testid="stMetricValue"] {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+[data-testid="stMetricDelta"] {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Container styling */
+[data-testid="stVerticalBlock"] > div {
+  gap: var(--space-4);
+}
+
+[data-testid="stHorizontalBlock"] {
+  gap: var(--space-4);
+}
+
+/* --------------------------------------------------------------------------
+   6. Buttons
+   -------------------------------------------------------------------------- */
+.stButton > button {
+  background: linear-gradient(
+    135deg,
+    var(--color-accent-primary) 0%,
+    #F59E0B 100%
+  );
+  color: var(--color-text-inverse);
+  border: none;
+  border-radius: var(--radius-md);
+  padding: var(--space-2) var(--space-5);
+  font-family: inherit;
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  transition: 
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast);
+  box-shadow: 0 4px 14px rgba(217, 119, 6, 0.25);
+}
+
+.stButton > button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(217, 119, 6, 0.35);
+}
+
+.stButton > button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(217, 119, 6, 0.2);
+}
+
+.stButton > button:focus {
+  outline: none;
+  box-shadow: 
+    0 0 0 3px var(--color-bg-primary),
+    0 0 0 5px var(--color-accent-primary);
+}
+
+/* Secondary/Outline Button */
+.stButton > button[kind="secondary"],
+.stButton > button[data-baseweb="button"][kind="secondary"] {
+  background: var(--color-bg-card);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border-medium);
+  box-shadow: var(--shadow-sm);
+}
+
+.stButton > button[kind="secondary"]:hover {
+  background: var(--color-bg-hover);
+  border-color: var(--color-border-heavy);
+  transform: translateY(-1px);
+}
+
+/* Danger Button */
+.stButton > button[kind="primary"][data-testid*="stop"],
+.btn-danger {
+  background: linear-gradient(135deg, var(--color-error), #EF4444);
+  box-shadow: 0 4px 14px rgba(220, 38, 38, 0.25);
+}
+
+/* --------------------------------------------------------------------------
+   7. Form Inputs
+   -------------------------------------------------------------------------- */
+.stTextInput > div > div > input,
+.stTextArea textarea,
+.stSelectbox div[data-baseweb="select"] > div,
+.stMultiSelect div[data-baseweb="select"] > div,
+.stNumberInput input {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-medium);
+  border-radius: var(--radius-md);
+  font-family: inherit;
+  font-size: var(--font-size-base);
+  padding: var(--space-3) var(--space-4);
+  color: var(--color-text-primary);
+  transition: 
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.stTextInput > div > div > input:focus,
+.stTextArea textarea:focus {
+  border-color: var(--color-accent-primary);
+  box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.1);
+  outline: none;
+}
+
+.stTextInput > div > div > input::placeholder,
+.stTextArea textarea::placeholder {
+  color: var(--color-text-muted);
+}
+
+/* Labels */
+.stTextInput > label,
+.stTextArea > label,
+.stSelectbox > label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-1);
+}
+
+/* Chat Input */
+[data-testid="stChatInput"] {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-medium);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+  padding: var(--space-2);
+}
+
+[data-testid="stChatInput"]:focus-within {
+  border-color: var(--color-accent-primary);
+  box-shadow: 
+    var(--shadow-md),
+    0 0 0 3px rgba(217, 119, 6, 0.1);
+}
+
+[data-testid="stChatInput"] input {
+  font-family: inherit;
+}
+
+/* --------------------------------------------------------------------------
+   8. Chat Messages
+   -------------------------------------------------------------------------- */
+[data-testid="stChatMessage"] {
+  padding: var(--space-3);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--space-2);
+}
+
+[data-testid="stChatMessage"][data-stale="false"] {
+  animation: messageSlideIn 0.3s ease-out;
+}
+
+@keyframes messageSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   9. Status Indicators
+   -------------------------------------------------------------------------- */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  transition: all var(--transition-fast);
+}
+
+.status-badge--idle {
+  background: var(--color-bg-secondary);
+  color: var(--color-text-secondary);
+}
+
+.status-badge--running {
+  background: var(--color-success-bg);
+  color: var(--color-success);
+}
+
+.status-badge--paused {
+  background: var(--color-warning-bg);
+  color: var(--color-warning);
+}
+
+.status-badge--waiting {
+  background: var(--color-info-bg);
+  color: var(--color-info);
+}
+
+.status-badge--error,
+.status-badge--failed {
+  background: var(--color-error-bg);
+  color: var(--color-error);
+}
+
+.status-badge--completed {
+  background: var(--color-success-bg);
+  color: var(--color-success);
+}
+
+/* Pulse animation for running status */
+.status-pulse {
+  position: relative;
+  padding-inline-start: var(--space-5);
+}
+
+.status-pulse::before {
+  content: '';
+  position: absolute;
+  inset-inline-start: var(--space-2);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8px;
+  height: 8px;
+  background: currentColor;
+  border-radius: var(--radius-full);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translateY(-50%) scale(1.3);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   10. Sidebar
+   -------------------------------------------------------------------------- */
+[data-testid="stSidebar"] {
+  background: var(--color-bg-card);
+  border-inline-end: 1px solid var(--color-border-light);
+}
+
+[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] h1 {
+  font-size: var(--font-size-lg);
+}
+
+[data-testid="stSidebar"] .stButton > button {
+  width: 100%;
+  justify-content: center;
+  min-height: 40px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Sidebar columns - better spacing */
+[data-testid="stSidebar"] [data-testid="stHorizontalBlock"] {
+  gap: var(--space-2) !important;
+}
+
+/* Sidebar buttons with icons only */
+[data-testid="stSidebar"] .stButton > button[data-testid*="ctrl_"] {
+  padding: var(--space-2);
+  min-width: 40px;
+  font-size: var(--font-size-lg);
+}
+
+/* --------------------------------------------------------------------------
+   11. Scrollbar
+   -------------------------------------------------------------------------- */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-heavy);
+  border-radius: var(--radius-full);
+  transition: background var(--transition-fast);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-muted);
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border-heavy) var(--color-bg-secondary);
+}
+
+/* --------------------------------------------------------------------------
+   12. Expander
+   -------------------------------------------------------------------------- */
+[data-testid="stExpander"] {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+[data-testid="stExpander"] summary {
+  padding: var(--space-3) var(--space-4);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+[data-testid="stExpander"] summary:hover {
+  background: var(--color-bg-hover);
+}
+
+/* --------------------------------------------------------------------------
+   13. Progress Bar
+   -------------------------------------------------------------------------- */
+.stProgress > div > div {
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.stProgress > div > div > div {
+  background: linear-gradient(
+    90deg,
+    var(--color-accent-primary),
+    var(--color-accent-secondary)
+  );
+  border-radius: var(--radius-full);
+  transition: width var(--transition-slow);
+}
+
+/* --------------------------------------------------------------------------
+   14. Tables
+   -------------------------------------------------------------------------- */
+[data-testid="stDataFrame"],
+[data-testid="stTable"] {
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+[data-testid="stDataFrame"] th {
+  background: var(--color-bg-secondary);
+  font-weight: var(--font-weight-semibold);
+  text-align: start;
+}
+
+[data-testid="stDataFrame"] td {
+  border-top: 1px solid var(--color-border-light);
+}
+
+[data-testid="stDataFrame"] tr:hover td {
+  background: var(--color-bg-hover);
+}
+
+/* --------------------------------------------------------------------------
+   15. Alerts & Messages
+   -------------------------------------------------------------------------- */
+.stAlert,
+[data-testid="stAlert"] {
+  border-radius: var(--radius-lg);
+  border-width: 1px;
+  border-style: solid;
+}
+
+.stSuccess, [data-baseweb="notification"][kind="positive"] {
+  background: var(--color-success-bg);
+  border-color: var(--color-success);
+  color: var(--color-success);
+}
+
+.stWarning, [data-baseweb="notification"][kind="warning"] {
+  background: var(--color-warning-bg);
+  border-color: var(--color-warning);
+  color: var(--color-warning);
+}
+
+.stError, [data-baseweb="notification"][kind="negative"] {
+  background: var(--color-error-bg);
+  border-color: var(--color-error);
+  color: var(--color-error);
+}
+
+.stInfo, [data-baseweb="notification"][kind="info"] {
+  background: var(--color-info-bg);
+  border-color: var(--color-info);
+  color: var(--color-info);
+}
+
+/* --------------------------------------------------------------------------
+   16. Tabs
+   -------------------------------------------------------------------------- */
+.stTabs [data-baseweb="tab-list"] {
+  gap: var(--space-1);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.stTabs [data-baseweb="tab"] {
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  font-weight: var(--font-weight-medium);
+  transition: all var(--transition-fast);
+}
+
+.stTabs [data-baseweb="tab"]:hover {
+  background: var(--color-bg-hover);
+}
+
+.stTabs [data-baseweb="tab"][aria-selected="true"] {
+  background: var(--color-bg-card);
+  border-bottom: 2px solid var(--color-accent-primary);
+}
+
+/* --------------------------------------------------------------------------
+   17. Tooltips
+   -------------------------------------------------------------------------- */
+[data-baseweb="tooltip"] {
+  background: var(--color-text-primary);
+  color: var(--color-text-inverse);
+  border-radius: var(--radius-md);
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--font-size-sm);
+  box-shadow: var(--shadow-lg);
+}
+
+/* --------------------------------------------------------------------------
+   18. Utility Classes
+   -------------------------------------------------------------------------- */
+.text-primary { color: var(--color-text-primary); }
+.text-secondary { color: var(--color-text-secondary); }
+.text-muted { color: var(--color-text-muted); }
+.text-success { color: var(--color-success); }
+.text-warning { color: var(--color-warning); }
+.text-error { color: var(--color-error); }
+.text-info { color: var(--color-info); }
+
+.bg-primary { background: var(--color-bg-primary); }
+.bg-secondary { background: var(--color-bg-secondary); }
+.bg-card { background: var(--color-bg-card); }
+.bg-elevated { background: var(--color-bg-elevated); }
+
+.rounded-sm { border-radius: var(--radius-sm); }
+.rounded-md { border-radius: var(--radius-md); }
+.rounded-lg { border-radius: var(--radius-lg); }
+.rounded-xl { border-radius: var(--radius-xl); }
+.rounded-full { border-radius: var(--radius-full); }
+
+.shadow-sm { box-shadow: var(--shadow-sm); }
+.shadow-md { box-shadow: var(--shadow-md); }
+.shadow-lg { box-shadow: var(--shadow-lg); }
+.shadow-xl { box-shadow: var(--shadow-xl); }
+
+/* --------------------------------------------------------------------------
+   19. Animations (Entry)
+   -------------------------------------------------------------------------- */
+section.main > div {
+  animation: slideUp 0.4s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fadeIn { animation: fadeIn 0.3s ease-out; }
+.animate-slideUp { animation: slideUp 0.4s ease-out; }
+.animate-scaleIn { animation: scaleIn 0.2s ease-out; }
+
+/* --------------------------------------------------------------------------
+   20. Focus Visible (Accessibility)
+   -------------------------------------------------------------------------- */
+:focus-visible {
+  outline: 2px solid var(--color-accent-primary);
+  outline-offset: 2px;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--color-accent-primary);
+  outline-offset: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   21. Print Styles
+   -------------------------------------------------------------------------- */
+@media print {
+  [data-testid="stSidebar"],
+  .stButton,
+  [data-testid="stChatInput"] {
+    display: none !important;
+  }
+  
+  body,
+  [data-testid="stAppViewContainer"] {
+    background: white !important;
+  }
+}

@@ -1,0 +1,48 @@
+﻿# Safety configuration
+safety:
+  enabled: true
+  strict_mode: false
+  rate_limit_enabled: true
+
+  domain_policy:
+    mode: allowlist
+    default_action: block
+    allowlist_path: config/domains/allowlist.yaml
+    denylist_path: config/domains/denylist.yaml
+
+  risk_levels:
+    high_risk_capabilities:
+      - web.submit_application
+      - web.upload_file
+      - web.click_submit
+      - desktop.run_command
+      - desktop.delete_file
+    medium_risk_capabilities:
+      - web.fill_form
+      - web.click
+      - desktop.type
+    low_risk_capabilities:
+      - web.extract
+      - web.screenshot
+      - web.get_text
+      - web.scroll
+      - web.wait
+
+  rate_limits:
+    default: "100/minute"
+    submit: "10/hour"
+    apply: "50/day"
+    api_call: "1000/hour"
+    login: "5/minute"
+
+  pii:
+    detect: true
+    redact_in_logs: true
+    redact_in_events: false
+    entities:
+      - EMAIL
+      - PHONE
+      - CREDIT_CARD
+      - IBAN
+      - NATIONAL_ID
+      - PASSWORD

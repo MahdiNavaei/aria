@@ -1,0 +1,331 @@
+/* ==========================================================================
+   ARIA Dark Theme - dark.css
+   Professional dark mode with reduced eye strain
+   Version: 2.0
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Dark Theme Color Overrides
+   -------------------------------------------------------------------------- */
+[data-theme="dark"],
+[data-theme="dark"] html,
+[data-theme="dark"] body,
+[data-theme="dark"] [data-testid="stAppViewContainer"],
+[data-theme="dark"] [data-testid="stApp"] {
+  /* Backgrounds - Dark grays with slight warmth */
+  --color-bg-primary: #0A0A0B;
+  --color-bg-secondary: #121214;
+  --color-bg-tertiary: #1A1A1D;
+  --color-bg-card: #1E1E21;
+  --color-bg-elevated: #252528;
+  --color-bg-hover: rgba(255, 255, 255, 0.06);
+  --color-bg-active: rgba(255, 255, 255, 0.1);
+  
+  /* Text - High contrast whites */
+  --color-text-primary: #FAFAFA;
+  --color-text-secondary: #A1A1AA;
+  --color-text-muted: #71717A;
+  --color-text-inverse: #0A0A0B;
+  --color-text-link: #60A5FA;
+  
+  /* Borders - Subtle separation */
+  --color-border-light: rgba(255, 255, 255, 0.06);
+  --color-border-medium: rgba(255, 255, 255, 0.12);
+  --color-border-heavy: rgba(255, 255, 255, 0.2);
+  --color-border-focus: var(--color-accent-primary);
+  
+  /* Accent colors - Brighter for dark mode */
+  --color-accent-primary: #F59E0B;
+  --color-accent-primary-hover: #FBBF24;
+  --color-accent-secondary: #14B8A6;
+  --color-accent-secondary-hover: #2DD4BF;
+  --color-accent-tertiary: #A78BFA;
+  --color-accent-tertiary-hover: #C4B5FD;
+  
+  /* Semantic colors - Adjusted for dark backgrounds */
+  --color-success: #10B981;
+  --color-success-bg: rgba(16, 185, 129, 0.15);
+  --color-warning: #FBBF24;
+  --color-warning-bg: rgba(251, 191, 36, 0.15);
+  --color-error: #F87171;
+  --color-error-bg: rgba(248, 113, 113, 0.15);
+  --color-info: #60A5FA;
+  --color-info-bg: rgba(96, 165, 250, 0.15);
+  
+  /* Shadows - More subtle in dark mode */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.2);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.2);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -4px rgba(0, 0, 0, 0.2);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.2);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+  --shadow-inner: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+  --shadow-glow: 0 0 20px rgba(245, 158, 11, 0.2);
+  --shadow-glow-success: 0 0 20px rgba(16, 185, 129, 0.2);
+  --shadow-glow-error: 0 0 20px rgba(248, 113, 113, 0.2);
+  
+  /* Apply background */
+  background: linear-gradient(
+    135deg,
+    var(--color-bg-primary) 0%,
+    var(--color-bg-secondary) 50%,
+    var(--color-bg-tertiary) 100%
+  );
+  color: var(--color-text-primary);
+}
+
+/* --------------------------------------------------------------------------
+   2. Base Elements
+   -------------------------------------------------------------------------- */
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+[data-theme="dark"] h5,
+[data-theme="dark"] h6 {
+  color: var(--color-text-primary);
+}
+
+[data-theme="dark"] p {
+  color: var(--color-text-secondary);
+}
+
+[data-theme="dark"] a {
+  color: var(--color-text-link);
+}
+
+/* --------------------------------------------------------------------------
+   3. Cards & Containers
+   -------------------------------------------------------------------------- */
+[data-theme="dark"] .card,
+[data-theme="dark"] .stMetric,
+[data-theme="dark"] [data-testid="stMetricValue"] {
+  background: var(--color-bg-card);
+  border-color: var(--color-border-light);
+}
+
+[data-theme="dark"] .card:hover,
+[data-theme="dark"] .stMetric:hover {
+  border-color: var(--color-border-medium);
+  box-shadow: var(--shadow-md);
+}
+
+/* --------------------------------------------------------------------------
+   4. Form Inputs
+   -------------------------------------------------------------------------- */
+[data-theme="dark"] .stTextInput > div > div > input,
+[data-theme="dark"] .stTextArea textarea,
+[data-theme="dark"] .stSelectbox div[data-baseweb="select"] > div,
+[data-theme="dark"] .stMultiSelect div[data-baseweb="select"] > div,
+[data-theme="dark"] .stNumberInput input {
+  background: var(--color-bg-card);
+  border-color: var(--color-border-medium);
+  color: var(--color-text-primary);
+}
+
+[data-theme="dark"] .stTextInput > div > div > input:focus,
+[data-theme="dark"] .stTextArea textarea:focus {
+  border-color: var(--color-accent-primary);
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);
+}
+
+[data-theme="dark"] input::placeholder,
+[data-theme="dark"] textarea::placeholder {
+  color: var(--color-text-muted);
+}
+
+/* Chat Input */
+[data-theme="dark"] [data-testid="stChatInput"] {
+  background: var(--color-bg-card);
+  border-color: var(--color-border-medium);
+}
+
+[data-theme="dark"] [data-testid="stChatInput"]:focus-within {
+  border-color: var(--color-accent-primary);
+  box-shadow: 
+    var(--shadow-md),
+    0 0 0 3px rgba(245, 158, 11, 0.1);
+}
+
+/* --------------------------------------------------------------------------
+   5. Buttons
+   -------------------------------------------------------------------------- */
+[data-theme="dark"] .stButton > button {
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.2);
+}
+
+[data-theme="dark"] .stButton > button:hover {
+  box-shadow: 0 6px 20px rgba(245, 158, 11, 0.3);
+}
+
+[data-theme="dark"] .stButton > button[kind="secondary"] {
+  background: var(--color-bg-card);
+  color: var(--color-text-primary);
+  border-color: var(--color-border-medium);
+}
+
+[data-theme="dark"] .stButton > button[kind="secondary"]:hover {
+  background: var(--color-bg-hover);
+  border-color: var(--color-border-heavy);
+}
+
+/* --------------------------------------------------------------------------
+   6. Sidebar
+   -------------------------------------------------------------------------- */
+[data-theme="dark"] [data-testid="stSidebar"] {
+  background: var(--color-bg-card);
+  border-color: var(--color-border-light);
+}
+
+/* --------------------------------------------------------------------------
+   7. Alerts & Messages
+   -------------------------------------------------------------------------- */
+[data-theme="dark"] .stSuccess,
+[data-theme="dark"] [data-baseweb="notification"][kind="positive"] {
+  background: var(--color-success-bg);
+  border-color: var(--color-success);
+}
+
+[data-theme="dark"] .stWarning,
+[data-theme="dark"] [data-baseweb="notification"][kind="warning"] {
+  background: var(--color-warning-bg);
+  border-color: var(--color-warning);
+}
+
+[data-theme="dark"] .stError,
+[data-theme="dark"] [data-baseweb="notification"][kind="negative"] {
+  background: var(--color-error-bg);
+  border-color: var(--color-error);
+}
+
+[data-theme="dark"] .stInfo,
+[data-theme="dark"] [data-baseweb="notification"][kind="info"] {
+  background: var(--color-info-bg);
+  border-color: var(--color-info);
+}
+
+/* --------------------------------------------------------------------------
+   8. Tables
+   -------------------------------------------------------------------------- */
+[data-theme="dark"] [data-testid="stDataFrame"],
+[data-theme="dark"] [data-testid="stTable"] {
+  border-color: var(--color-border-light);
+}
+
+[data-theme="dark"] [data-testid="stDataFrame"] th {
+  background: var(--color-bg-secondary);
+  color: var(--color-text-primary);
+}
+
+[data-theme="dark"] [data-testid="stDataFrame"] td {
+  border-color: var(--color-border-light);
+  color: var(--color-text-secondary);
+}
+
+[data-theme="dark"] [data-testid="stDataFrame"] tr:hover td {
+  background: var(--color-bg-hover);
+}
+
+/* --------------------------------------------------------------------------
+   9. Tabs
+   -------------------------------------------------------------------------- */
+[data-theme="dark"] .stTabs [data-baseweb="tab-list"] {
+  border-color: var(--color-border-light);
+}
+
+[data-theme="dark"] .stTabs [data-baseweb="tab"]:hover {
+  background: var(--color-bg-hover);
+}
+
+[data-theme="dark"] .stTabs [data-baseweb="tab"][aria-selected="true"] {
+  background: var(--color-bg-card);
+  border-color: var(--color-accent-primary);
+}
+
+/* --------------------------------------------------------------------------
+   10. Expander
+   -------------------------------------------------------------------------- */
+[data-theme="dark"] [data-testid="stExpander"] {
+  background: var(--color-bg-card);
+  border-color: var(--color-border-light);
+}
+
+[data-theme="dark"] [data-testid="stExpander"] summary:hover {
+  background: var(--color-bg-hover);
+}
+
+/* --------------------------------------------------------------------------
+   11. Scrollbar
+   -------------------------------------------------------------------------- */
+[data-theme="dark"] ::-webkit-scrollbar-track {
+  background: var(--color-bg-secondary);
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+  background: var(--color-border-heavy);
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-muted);
+}
+
+[data-theme="dark"] * {
+  scrollbar-color: var(--color-border-heavy) var(--color-bg-secondary);
+}
+
+/* --------------------------------------------------------------------------
+   12. Tooltips
+   -------------------------------------------------------------------------- */
+[data-theme="dark"] [data-baseweb="tooltip"] {
+  background: var(--color-bg-elevated);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border-light);
+}
+
+/* --------------------------------------------------------------------------
+   13. Progress Bar
+   -------------------------------------------------------------------------- */
+[data-theme="dark"] .stProgress > div > div {
+  background: var(--color-bg-secondary);
+}
+
+/* --------------------------------------------------------------------------
+   14. Code Blocks
+   -------------------------------------------------------------------------- */
+[data-theme="dark"] code,
+[data-theme="dark"] pre,
+[data-theme="dark"] .stCode,
+[data-theme="dark"] [data-testid="stCode"] {
+  background: var(--color-bg-secondary);
+  border-color: var(--color-border-light);
+}
+
+/* --------------------------------------------------------------------------
+   15. Chat Messages
+   -------------------------------------------------------------------------- */
+[data-theme="dark"] [data-testid="stChatMessage"] {
+  background: var(--color-bg-card);
+}
+
+/* --------------------------------------------------------------------------
+   16. Status Badges
+   -------------------------------------------------------------------------- */
+[data-theme="dark"] .status-badge--idle {
+  background: var(--color-bg-secondary);
+  color: var(--color-text-secondary);
+}
+
+/* --------------------------------------------------------------------------
+   17. Selection
+   -------------------------------------------------------------------------- */
+[data-theme="dark"] ::selection {
+  background: rgba(245, 158, 11, 0.3);
+  color: var(--color-text-primary);
+}
+
+/* --------------------------------------------------------------------------
+   18. Focus States
+   -------------------------------------------------------------------------- */
+[data-theme="dark"] :focus-visible {
+  outline-color: var(--color-accent-primary);
+}

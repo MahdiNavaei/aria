@@ -1,0 +1,16 @@
+FROM E:/Programs/.ollama/models/gemma-3-4b-persian-v0-abliterated-q8_0.gguf
+
+# === SPEED OPTIMIZATIONS ===
+PARAMETER num_gpu 99
+PARAMETER num_ctx 2048
+PARAMETER num_batch 512
+PARAMETER num_thread 8
+
+# === GENERATION SETTINGS ===
+PARAMETER temperature 0.7
+PARAMETER num_predict 512
+PARAMETER top_p 0.9
+PARAMETER top_k 40
+PARAMETER repeat_penalty 1.1
+
+SYSTEM """تو ARIA هستی، دستیار هوشمند. کوتاه و مفید جواب بده."""

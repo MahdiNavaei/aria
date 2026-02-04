@@ -1,0 +1,65 @@
+llm:
+  provider: ollama
+  # Note: models_path is informational only. Ollama manages its own model directory.
+  # Default locations: ~/.ollama/models (Linux/macOS) or C:\Users\<User>\.ollama\models (Windows)
+  models_path: "~/.ollama/models"  # Default: ~/.ollama/models (Linux/macOS) or C:\Users\<User>\.ollama\models (Windows)
+
+  ollama:
+    base_url: http://localhost:11434
+
+    models:
+      # IMPORTANT: These names must match the model names registered in Ollama (via 'ollama create')
+      # To use different models, register them in Ollama and update the names here
+      
+      # Brain - Planning & Reasoning
+      # Register with: ollama create aria-brain -f Modelfile.aria-brain
+      brain: aria-brain                    # Required: qwen3-7b-instruct or equivalent
+      
+      # Brain (Persian) - Persian chat interface
+      # Register with: ollama create aria-persian-chat -f Modelfile.aria-persian-chat
+      brain_persian: aria-persian-chat     # Optional: gemma-3-4b-persian or aya-expanse-8b
+      
+      # Brain (Persian Reasoning) - Persian reasoning tasks
+      # Register with: ollama create aria-brain-persian -f Modelfile.aria-brain-persian
+      brain_persian_reasoning: aria-brain-persian  # Optional: DeepSeek-R1-Persian
+      
+      # Eye - Vision/Language Model for UI understanding
+      # Register with: ollama create aria-eye -f Modelfile.aria-eye
+      eye: aria-eye                        # Required: Qwen3-VL-4B-Thinking or equivalent VLM
+      
+      # Coder - Code generation
+      # Register with: ollama create aria-coder -f Modelfile.aria-coder
+      coder: aria-coder                    # Optional: qwen2.5-coder-7b or equivalent
+      
+      # Embedding - Not used via Ollama, uses sentence-transformers instead
+      # See: EMBEDDING_MODEL in .env for configuration
+      embedding: null
+      
+      # Audio - Not currently used
+      audio: null
+
+    options:
+      temperature: 0.7
+      num_predict: 2000
+      top_p: 0.9
+
+    model_options:
+      brain:
+        temperature: 0.7
+        num_predict: 2000
+        num_ctx: 8192
+      brain_persian:
+        temperature: 0.8
+        num_predict: 2000
+        num_ctx: 4096
+      brain_persian_reasoning:
+        temperature: 0.7
+        num_predict: 2000
+      coder:
+        temperature: 0.2
+        num_predict: 4000
+        num_ctx: 8192
+      eye:
+        temperature: 0.1
+        num_predict: 1000
+        num_ctx: 2048

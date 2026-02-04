@@ -1,0 +1,528 @@
+/* ==========================================================================
+   ARIA RTL Styles - rtl.css
+   Complete Right-to-Left Support for Persian (Farsi) / Arabic / Hebrew
+   Version: 2.0
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Base Direction & Typography
+   -------------------------------------------------------------------------- */
+[dir="rtl"],
+[dir="rtl"] * {
+  direction: rtl;
+}
+
+[dir="rtl"] {
+  font-family: var(--font-family-fa);
+  text-align: right;
+}
+
+/* Keep code blocks LTR for readability */
+[dir="rtl"] code,
+[dir="rtl"] pre,
+[dir="rtl"] .stCode,
+[dir="rtl"] [data-testid="stCode"],
+[dir="rtl"] [data-testid="stCodeBlock"],
+[dir="rtl"] .language-python,
+[dir="rtl"] .language-javascript,
+[dir="rtl"] .language-bash {
+  direction: ltr;
+  text-align: left;
+  font-family: var(--font-family-mono);
+  unicode-bidi: embed;
+}
+
+/* URLs and technical content should stay LTR */
+[dir="rtl"] .url,
+[dir="rtl"] .email,
+[dir="rtl"] .path,
+[dir="rtl"] [data-testid="stTextInput"] input[type="url"],
+[dir="rtl"] [data-testid="stTextInput"] input[type="email"] {
+  direction: ltr;
+  text-align: left;
+  unicode-bidi: embed;
+}
+
+/* --------------------------------------------------------------------------
+   2. Layout Mirroring with CSS Logical Properties
+   -------------------------------------------------------------------------- */
+/* Flexbox row direction */
+[dir="rtl"] [data-testid="stHorizontalBlock"],
+[dir="rtl"] .stHorizontalBlock,
+[dir="rtl"] .flex-row {
+  flex-direction: row-reverse;
+}
+
+/* Main container */
+[dir="rtl"] [data-testid="stAppViewContainer"] {
+  padding-inline-start: var(--space-6);
+  padding-inline-end: var(--space-6);
+}
+
+/* Columns - Streamlit handles this automatically with flex-direction */
+
+/* --------------------------------------------------------------------------
+   3. Sidebar
+   -------------------------------------------------------------------------- */
+[dir="rtl"] [data-testid="stSidebar"] {
+  right: 0;
+  left: auto;
+  border-left: 1px solid var(--color-border-light);
+  border-right: none;
+  text-align: right;
+}
+
+[dir="rtl"] [data-testid="stSidebar"] [data-testid="stSidebarNav"] {
+  direction: rtl;
+}
+
+[dir="rtl"] [data-testid="stSidebar"] .stButton > button {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+[dir="rtl"] [data-testid="stSidebarCollapsedControl"] {
+  left: auto;
+  right: 0;
+}
+
+/* --------------------------------------------------------------------------
+   4. Form Elements
+   -------------------------------------------------------------------------- */
+[dir="rtl"] .stTextInput > div > div > input,
+[dir="rtl"] .stTextArea textarea,
+[dir="rtl"] .stNumberInput input {
+  text-align: right;
+  padding-inline-start: var(--space-4);
+  padding-inline-end: var(--space-4);
+}
+
+[dir="rtl"] .stTextInput > label,
+[dir="rtl"] .stTextArea > label,
+[dir="rtl"] .stSelectbox > label,
+[dir="rtl"] .stMultiSelect > label,
+[dir="rtl"] .stCheckbox > label,
+[dir="rtl"] .stRadio > label {
+  text-align: right;
+}
+
+/* Placeholder alignment */
+[dir="rtl"] input::placeholder,
+[dir="rtl"] textarea::placeholder {
+  text-align: right;
+}
+
+/* Select/Dropdown */
+[dir="rtl"] .stSelectbox div[data-baseweb="select"] > div,
+[dir="rtl"] .stMultiSelect div[data-baseweb="select"] > div {
+  text-align: right;
+}
+
+[dir="rtl"] [data-baseweb="select"] [data-baseweb="icon"] {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+/* Checkbox and Radio */
+[dir="rtl"] .stCheckbox,
+[dir="rtl"] .stRadio {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .stCheckbox > label > div,
+[dir="rtl"] .stRadio > label > div {
+  margin-left: var(--space-2);
+  margin-right: 0;
+}
+
+/* Chat Input */
+[dir="rtl"] [data-testid="stChatInput"] input {
+  text-align: right;
+}
+
+[dir="rtl"] [data-testid="stChatInput"] button {
+  /* Send button on left in RTL */
+  margin-left: 0;
+  margin-right: var(--space-2);
+}
+
+/* --------------------------------------------------------------------------
+   5. Icons & Directional Elements
+   -------------------------------------------------------------------------- */
+/* Mirror directional icons */
+[dir="rtl"] .icon-arrow-left,
+[dir="rtl"] .icon-arrow-right,
+[dir="rtl"] .icon-chevron-left,
+[dir="rtl"] .icon-chevron-right,
+[dir="rtl"] .icon-arrow-forward,
+[dir="rtl"] .icon-arrow-back,
+[dir="rtl"] [data-testid="stArrowLeft"],
+[dir="rtl"] [data-testid="stArrowRight"] {
+  transform: scaleX(-1);
+}
+
+/* Don't mirror these icons */
+[dir="rtl"] .icon-check,
+[dir="rtl"] .icon-close,
+[dir="rtl"] .icon-refresh,
+[dir="rtl"] .icon-settings,
+[dir="rtl"] .icon-user,
+[dir="rtl"] .icon-search,
+[dir="rtl"] .icon-play,
+[dir="rtl"] .icon-pause,
+[dir="rtl"] .icon-stop {
+  transform: none;
+}
+
+/* Browser navigation buttons */
+[dir="rtl"] .browser-nav {
+  flex-direction: row-reverse;
+}
+
+/* Progress bar direction */
+[dir="rtl"] .stProgress > div > div > div {
+  transform-origin: right;
+}
+
+/* --------------------------------------------------------------------------
+   6. Metrics & Cards
+   -------------------------------------------------------------------------- */
+[dir="rtl"] .stMetric {
+  text-align: right;
+}
+
+[dir="rtl"] [data-testid="stMetricLabel"] {
+  text-align: right;
+}
+
+[dir="rtl"] [data-testid="stMetricValue"] {
+  text-align: right;
+  /* Keep numbers LTR for readability */
+  direction: ltr;
+  display: inline-block;
+}
+
+[dir="rtl"] [data-testid="stMetricDelta"] {
+  direction: ltr;
+  display: inline-flex;
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] [data-testid="stMetricDelta"] svg {
+  /* Mirror delta arrow */
+  transform: scaleX(-1);
+}
+
+/* --------------------------------------------------------------------------
+   7. Status Bar & Badges
+   -------------------------------------------------------------------------- */
+[dir="rtl"] .status-bar {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .status-badge {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .status-pulse::before {
+  left: auto;
+  right: var(--space-2);
+  inset-inline-start: var(--space-2);
+}
+
+/* --------------------------------------------------------------------------
+   8. Activity Log
+   -------------------------------------------------------------------------- */
+[dir="rtl"] .activity-log-item {
+  flex-direction: row-reverse;
+  text-align: right;
+}
+
+[dir="rtl"] .activity-log-item .timestamp {
+  margin-inline-start: 0;
+  margin-inline-end: var(--space-2);
+}
+
+[dir="rtl"] .activity-log-item .icon {
+  margin-inline-start: 0;
+  margin-inline-end: var(--space-2);
+}
+
+[dir="rtl"] .activity-log-item .message {
+  text-align: right;
+}
+
+/* --------------------------------------------------------------------------
+   9. Chat Messages
+   -------------------------------------------------------------------------- */
+[dir="rtl"] [data-testid="stChatMessage"] {
+  text-align: right;
+}
+
+[dir="rtl"] [data-testid="stChatMessageContent"] {
+  text-align: right;
+}
+
+/* Avatar position */
+[dir="rtl"] [data-testid="stChatMessage"] [data-testid="stChatMessageAvatar"] {
+  margin-left: var(--space-3);
+  margin-right: 0;
+}
+
+/* User messages alignment */
+[dir="rtl"] [data-testid="stChatMessage"][data-testid*="user"] {
+  flex-direction: row-reverse;
+}
+
+/* --------------------------------------------------------------------------
+   10. Step Panel & Progress
+   -------------------------------------------------------------------------- */
+[dir="rtl"] .step-progress {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .step-indicator {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .step-connector {
+  /* Connector line direction */
+  background: linear-gradient(to left, var(--color-success), var(--color-border-light));
+}
+
+[dir="rtl"] .step-item {
+  text-align: right;
+}
+
+[dir="rtl"] .step-item .step-number {
+  margin-left: var(--space-2);
+  margin-right: 0;
+}
+
+/* --------------------------------------------------------------------------
+   11. HITL Panel
+   -------------------------------------------------------------------------- */
+[dir="rtl"] .hitl-panel {
+  text-align: right;
+}
+
+[dir="rtl"] .hitl-panel .button-group {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .hitl-panel .hitl-icon {
+  margin-left: var(--space-2);
+  margin-right: 0;
+}
+
+/* --------------------------------------------------------------------------
+   12. Modal & Dialogs
+   -------------------------------------------------------------------------- */
+[dir="rtl"] .modal-header {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .modal-header .close-btn {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+[dir="rtl"] .modal-footer {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .modal-body {
+  text-align: right;
+}
+
+/* --------------------------------------------------------------------------
+   13. Tables & Data
+   -------------------------------------------------------------------------- */
+[dir="rtl"] table,
+[dir="rtl"] [data-testid="stDataFrame"],
+[dir="rtl"] [data-testid="stTable"] {
+  direction: rtl;
+}
+
+[dir="rtl"] th,
+[dir="rtl"] td {
+  text-align: right;
+}
+
+[dir="rtl"] th:first-child,
+[dir="rtl"] td:first-child {
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+}
+
+[dir="rtl"] th:last-child,
+[dir="rtl"] td:last-child {
+  border-radius: var(--radius-md) 0 0 var(--radius-md);
+}
+
+/* --------------------------------------------------------------------------
+   14. Numbers & Dates
+   -------------------------------------------------------------------------- */
+/* Keep numbers LTR for better readability */
+[dir="rtl"] .number,
+[dir="rtl"] .date,
+[dir="rtl"] .time,
+[dir="rtl"] .metric-value,
+[dir="rtl"] .percentage,
+[dir="rtl"] .price {
+  direction: ltr;
+  display: inline-block;
+  unicode-bidi: embed;
+}
+
+/* Phone numbers */
+[dir="rtl"] .phone,
+[dir="rtl"] input[type="tel"] {
+  direction: ltr;
+  text-align: left;
+}
+
+/* --------------------------------------------------------------------------
+   15. Tooltips & Popovers
+   -------------------------------------------------------------------------- */
+[dir="rtl"] [data-baseweb="tooltip"],
+[dir="rtl"] .tooltip {
+  text-align: right;
+}
+
+[dir="rtl"] [data-baseweb="popover"] {
+  text-align: right;
+}
+
+/* --------------------------------------------------------------------------
+   16. Tabs
+   -------------------------------------------------------------------------- */
+[dir="rtl"] .stTabs [data-baseweb="tab-list"] {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .stTabs [data-baseweb="tab"] {
+  margin-left: var(--space-1);
+  margin-right: 0;
+}
+
+/* --------------------------------------------------------------------------
+   17. Breadcrumbs & Navigation
+   -------------------------------------------------------------------------- */
+[dir="rtl"] .breadcrumb {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .breadcrumb-separator {
+  transform: scaleX(-1);
+}
+
+[dir="rtl"] .pagination {
+  flex-direction: row-reverse;
+}
+
+/* --------------------------------------------------------------------------
+   18. Lists
+   -------------------------------------------------------------------------- */
+[dir="rtl"] ul,
+[dir="rtl"] ol {
+  padding-right: var(--space-5);
+  padding-left: 0;
+}
+
+[dir="rtl"] li {
+  text-align: right;
+}
+
+[dir="rtl"] li::marker {
+  /* Marker position handled by browser */
+}
+
+/* --------------------------------------------------------------------------
+   19. Alerts & Notifications
+   -------------------------------------------------------------------------- */
+[dir="rtl"] .stAlert,
+[dir="rtl"] [data-testid="stAlert"],
+[dir="rtl"] [data-baseweb="notification"] {
+  text-align: right;
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .stAlert svg,
+[dir="rtl"] [data-baseweb="notification"] svg {
+  margin-left: var(--space-2);
+  margin-right: 0;
+}
+
+/* --------------------------------------------------------------------------
+   20. Expander
+   -------------------------------------------------------------------------- */
+[dir="rtl"] [data-testid="stExpander"] summary {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] [data-testid="stExpander"] summary svg {
+  margin-left: 0;
+  margin-right: var(--space-2);
+  /* Mirror expand icon */
+  transform: scaleX(-1);
+}
+
+/* --------------------------------------------------------------------------
+   21. File Uploader
+   -------------------------------------------------------------------------- */
+[dir="rtl"] [data-testid="stFileUploader"] {
+  text-align: right;
+}
+
+[dir="rtl"] [data-testid="stFileUploader"] label {
+  text-align: right;
+}
+
+/* --------------------------------------------------------------------------
+   22. Header & Language Switcher
+   -------------------------------------------------------------------------- */
+[dir="rtl"] .header {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .header .logo {
+  margin-left: var(--space-4);
+  margin-right: 0;
+}
+
+[dir="rtl"] .header .actions {
+  flex-direction: row-reverse;
+}
+
+/* Language switcher should not change */
+[dir="rtl"] .language-switcher {
+  direction: ltr;
+}
+
+/* --------------------------------------------------------------------------
+   23. Animations - Adjust for RTL
+   -------------------------------------------------------------------------- */
+[dir="rtl"] .animate-slideIn {
+  animation: slideInRTL 0.3s ease-out;
+}
+
+@keyframes slideInRTL {
+  from {
+    opacity: 0;
+    transform: translateX(16px); /* Slide from right in RTL */
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   24. Print Styles for RTL
+   -------------------------------------------------------------------------- */
+@media print {
+  [dir="rtl"] {
+    direction: rtl;
+    text-align: right;
+  }
+}

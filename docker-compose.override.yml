@@ -1,0 +1,16 @@
+services:
+  redpanda:
+    environment:
+      - REDPANDA_LOG_LEVEL=info
+
+  redpanda-console:
+    environment:
+      - CONSOLE_LOG_LEVEL=debug
+
+  redisinsight:
+    environment:
+      - RI_LOG_LEVEL=debug
+
+  qdrant:
+    environment:
+      - QDRANT__LOG_LEVEL=INFO

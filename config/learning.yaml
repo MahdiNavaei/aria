@@ -1,0 +1,22 @@
+﻿learning:
+  enabled: true
+
+  skill_extraction:
+    min_steps: 3
+    success_required: true
+    auto_generalize: true
+
+  policy_learning:
+    from_corrections: true
+    from_approvals: true
+    from_rejections: true
+    initial_confidence: 0.7
+
+  uiref_refinement:
+    confidence_increment: 0.05
+    confidence_decrement: 0.15
+    min_confidence: 0.1
+
+  artifacts_dir: data/artifacts
+  recordings_dir: data/recordings
+  consumer_group: aria-learning

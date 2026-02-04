@@ -1,0 +1,51 @@
+# Base configuration
+kafka:
+  bootstrap_servers:
+    - "localhost:9092"
+  consumer_group: "aria-dev"
+  auto_offset_reset: "earliest"
+  topics:
+    agent.command.v1:
+      partitions: 1
+      replication_factor: 1
+      retention_ms: 604800000
+    hand.execution.v1:
+      partitions: 3
+      replication_factor: 1
+      retention_ms: 2592000000
+
+redis:
+  host: "localhost"
+  port: 6379
+  db: 0
+  password: null
+  ttl_defaults:
+    session_state: 86400
+    working_memory: 14400
+    cache: 3600
+    llm_cache: 900
+  key_prefixes:
+    session: "session"
+    memory: "memory"
+    cache: "cache"
+    flag: "flag"
+
+llm:
+  provider: "ollama"
+  model_name: "aria-brain"
+  base_url: "http://localhost:11434"
+  api_key: null
+  roles:
+    brain:
+      model_name: "aria-brain"
+      temperature: 0.7
+    eye:
+      model_name: "aria-eye"
+      temperature: 0.1
+    ml:
+      model_name: "aria-brain"
+      temperature: 0.3
+
+ui:
+  host: "0.0.0.0"
+  port: 8501

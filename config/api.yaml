@@ -1,0 +1,14 @@
+﻿api:
+  host: 0.0.0.0
+  port: 8000
+  reload: true
+
+  cors:
+    enabled: true
+    origins:
+      - http://localhost:8501
+      - http://localhost:3000
+
+  websocket:
+    ping_interval: 30
+    max_connections: 100
