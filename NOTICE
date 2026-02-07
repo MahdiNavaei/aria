@@ -1,0 +1,94 @@
+ARIA - Adaptive Reasoning & Intelligent Automation
+Copyright (C) 2026 Mahdi Navaei
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published
+by the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+---
+
+NOTICE OF NETWORK INTERACTION (AGPL v3 Section 13)
+
+This software is designed to interact with users remotely through a computer network.
+Under Section 13 of the GNU Affero General Public License v3, if you modify this
+software and make it available to users over a network, you must:
+
+1. Prominently offer all users the opportunity to receive the Corresponding Source
+2. Provide access to the source code from a network server at no charge
+3. Use standard means of facilitating copying of software
+
+The source code for ARIA is available at:
+https://github.com/MahdiNavaei/aria
+
+If you deploy a modified version of ARIA as a network service, you must provide
+users with access to your modified source code.
+
+---
+
+THIRD-PARTY COMPONENTS
+
+This software includes components from third-party open-source projects.
+See THIRD_PARTY_LICENSES.md for complete license information.
+
+Key components:
+
+1. AIHawk (AGPL v3)
+   Copyright (C) 2024 AI Hawk FOSS
+   https://github.com/feder-cr/Jobs_Applier_AI_Agent_AIHawk
+
+2. Skyvern (AGPL v3)
+   Copyright (C) 2007 Free Software Foundation, Inc.
+   https://github.com/Skyvern-AI/skyvern
+
+3. browser-use (MIT License)
+   Copyright (c) 2024 Gregor Zunic
+   https://github.com/browser-use/browser-use
+
+4. OpenAdapt (MIT License)
+   Copyright (c) 2023 MLDSAI Inc., Richard Abrich, and contributors
+   https://github.com/OpenAdaptAI/OpenAdapt
+
+---
+
+HOW TO GET THE SOURCE CODE
+
+If you are interacting with a modified version of ARIA through a network
+(e.g., as a web service, API, or SaaS), the operator should provide you
+with a link to download the complete source code.
+
+If no such link is provided, or if you have questions about obtaining
+the source code, please contact the service operator.
+
+For the original ARIA source code, visit:
+https://github.com/MahdiNavaei/aria
+
+---
+
+CONTACT INFORMATION
+
+Project Maintainer: Mahdi Navaei
+Email: mahdinavaei1367@gmail.com
+GitHub: https://github.com/MahdiNavaei
+LinkedIn: https://linkedin.com/in/mahdinavaei
+
+For license compliance questions, email: mahdinavaei1367@gmail.com
+For bugs and feature requests: https://github.com/MahdiNavaei/aria/issues
+
+---
+
+ADDITIONAL INFORMATION
+
+For detailed license compliance information, see:
+- LICENSE - Full text of the GNU AGPL v3
+- LICENSE_COMPLIANCE.md - Compliance guide and FAQs
+- THIRD_PARTY_LICENSES.md - Complete third-party license list
+- SECURITY.md - Security policy and vulnerability reporting

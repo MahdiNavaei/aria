@@ -9,7 +9,7 @@
 *An agentic AI system for autonomous task execution with human-in-the-loop safety*
 
 [![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
-[![License: MIT](https://img.shields.io/badge/license-MIT-green?style=for-the-badge)](LICENSE)
+[![License: AGPL v3](https://img.shields.io/badge/license-AGPL%20v3-blue?style=for-the-badge)](LICENSE)
 [![Tests](https://img.shields.io/badge/tests-81%20total%20%7C%2077%20passed-success?style=for-the-badge&logo=pytest)](tests/)
 [![Code Style: Ruff](https://img.shields.io/badge/code%20style-ruff-000000?style=for-the-badge)](https://github.com/astral-sh/ruff)
 
@@ -421,46 +421,35 @@ Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for:
 
 ## License
 
-### ⚠️ Important License Notice
+This project is licensed under the **GNU Affero General Public License v3.0 (AGPL-3.0)** - see the [LICENSE](LICENSE) file for details.
 
-**ARIA currently has a license conflict that requires your attention.**
+### What This Means
 
-- **ARIA Core:** MIT License
-- **Vendor Dependencies:** Mix of MIT and **AGPL v3** licenses
+**AGPL v3** is a strong copyleft license that ensures software freedom:
 
-**Critical Information:**
-- This project includes AGPL v3 components (AIHawk, Skyvern)
-- AGPL v3 is a strong copyleft license with network service requirements
-- **If you use ARIA as-is, you must comply with AGPL v3 terms**
-- This means you must open-source any modifications if you offer ARIA as a network service
+✅ **You CAN:**
+- Use ARIA for any purpose (personal, commercial, research)
+- Modify and distribute ARIA
+- Use ARIA as a network service (API, SaaS, web app)
 
-**📋 Required Reading:**
-- [LICENSE_COMPLIANCE.md](LICENSE_COMPLIANCE.md) - **Detailed analysis and solutions**
-- [THIRD_PARTY_LICENSES.md](THIRD_PARTY_LICENSES.md) - Complete list of all licenses
+⚠️ **You MUST:**
+- Provide source code to users who interact with your modified version over a network
+- License your modifications under AGPL v3
+- Keep all copyright and license notices intact
+- Disclose your source code if you run ARIA as a network service
 
-**Quick Summary:**
+📋 **Additional Information:**
+- [THIRD_PARTY_LICENSES.md](THIRD_PARTY_LICENSES.md) - Complete list of all third-party licenses
+- [LICENSE_COMPLIANCE.md](LICENSE_COMPLIANCE.md) - Detailed compliance guide and FAQs
 
-| Component | License | Your Obligations |
-|-----------|---------|------------------|
-| browser-use | MIT | ✅ Attribution only |
-| OpenAdapt | MIT | ✅ Attribution only |
-| **AIHawk** | **AGPL v3** | ⚠️ **Must disclose source code if used over network** |
-| **Skyvern** | **AGPL v3** | ⚠️ **Must disclose source code if used over network** |
+### Why AGPL v3?
 
-**Options:**
-1. **Accept AGPL** - Use ARIA under AGPL v3 terms (must open-source modifications)
-2. **Remove AGPL** - Remove AIHawk/Skyvern to keep MIT license
-3. **Consult legal** - Get professional advice for your specific use case
+ARIA includes components licensed under AGPL v3 (AIHawk, Skyvern), which ensures:
+- The entire ecosystem remains open-source
+- Network service operators must share their improvements
+- Users always have access to the source code
 
-For detailed guidance, see [LICENSE_COMPLIANCE.md](LICENSE_COMPLIANCE.md).
-
----
-
-### Base License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-**However:** Due to AGPL v3 dependencies, the combined work is subject to AGPL v3 terms. See above for details.
+**Note:** If you need a more permissive license for your use case, you can remove the AGPL-licensed components and use only the MIT-licensed parts (browser-use, OpenAdapt). See [LICENSE_COMPLIANCE.md](LICENSE_COMPLIANCE.md) for details.
 
 ---
 
