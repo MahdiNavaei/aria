@@ -421,7 +421,46 @@ Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for:
 
 ## License
 
+### ⚠️ Important License Notice
+
+**ARIA currently has a license conflict that requires your attention.**
+
+- **ARIA Core:** MIT License
+- **Vendor Dependencies:** Mix of MIT and **AGPL v3** licenses
+
+**Critical Information:**
+- This project includes AGPL v3 components (AIHawk, Skyvern)
+- AGPL v3 is a strong copyleft license with network service requirements
+- **If you use ARIA as-is, you must comply with AGPL v3 terms**
+- This means you must open-source any modifications if you offer ARIA as a network service
+
+**📋 Required Reading:**
+- [LICENSE_COMPLIANCE.md](LICENSE_COMPLIANCE.md) - **Detailed analysis and solutions**
+- [THIRD_PARTY_LICENSES.md](THIRD_PARTY_LICENSES.md) - Complete list of all licenses
+
+**Quick Summary:**
+
+| Component | License | Your Obligations |
+|-----------|---------|------------------|
+| browser-use | MIT | ✅ Attribution only |
+| OpenAdapt | MIT | ✅ Attribution only |
+| **AIHawk** | **AGPL v3** | ⚠️ **Must disclose source code if used over network** |
+| **Skyvern** | **AGPL v3** | ⚠️ **Must disclose source code if used over network** |
+
+**Options:**
+1. **Accept AGPL** - Use ARIA under AGPL v3 terms (must open-source modifications)
+2. **Remove AGPL** - Remove AIHawk/Skyvern to keep MIT license
+3. **Consult legal** - Get professional advice for your specific use case
+
+For detailed guidance, see [LICENSE_COMPLIANCE.md](LICENSE_COMPLIANCE.md).
+
+---
+
+### Base License
+
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+**However:** Due to AGPL v3 dependencies, the combined work is subject to AGPL v3 terms. See above for details.
 
 ---
 
