@@ -389,6 +389,25 @@ Detailed design discussions are captured in the documentation and ADRs.
 
 ---
 
+## Security
+
+Security is a core design principle in ARIA. For information about:
+
+- Reporting security vulnerabilities
+- Supported versions and security updates
+- Security best practices for deployment
+- Incident response procedures
+
+Please see our [Security Policy](SECURITY.md).
+
+**⚠️ Security Reminder:**
+- Never commit `.env` files or credentials to version control
+- Use local LLMs to avoid data exfiltration
+- Enable Human-in-the-Loop (HITL) safety gates for production use
+- Review the security documentation before deploying to production
+
+---
+
 ## Contributing
 
 Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for:
