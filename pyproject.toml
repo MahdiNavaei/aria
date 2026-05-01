@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "aria"
-version = "0.1.0"
-description = "🤖 Production-grade Agentic AI Framework | Vision + LLM + Event Sourcing | Local LLMs | LangGraph | HITL Safety"
+version = "0.2.0"
+description = "Production-grade Agentic AI Framework | Contract-first orchestration | Replay previews | Local LLMs | LangGraph | HITL Safety"
 readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "AGPL-3.0-or-later" }
@@ -44,12 +44,11 @@ classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules",
     "Topic :: Software Development :: Libraries :: Application Frameworks",
 ]
-project-urls = {
-    "Homepage" = "https://github.com/MahdiNavaei/aria",
-    "Documentation" = "https://github.com/MahdiNavaei/aria/tree/main/Docs/English",
-    "Repository" = "https://github.com/MahdiNavaei/aria",
-    "Issues" = "https://github.com/MahdiNavaei/aria/issues",
-}
+[project.urls]
+Homepage = "https://github.com/MahdiNavaei/aria"
+Documentation = "https://github.com/MahdiNavaei/aria/tree/main/Docs/English"
+Repository = "https://github.com/MahdiNavaei/aria"
+Issues = "https://github.com/MahdiNavaei/aria/issues"
 
 dependencies = [
     # Orchestration

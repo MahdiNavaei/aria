@@ -53,6 +53,8 @@ credentials.json
 *.pt
 *.pth
 models/
+!src/aria/plugins/job_apply/models/
+!src/aria/plugins/job_apply/models/*.py
 .ollama/
 *.onnx
 *.h5

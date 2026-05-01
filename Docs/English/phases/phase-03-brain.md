@@ -1,142 +1,46 @@
 ---
-title: "Phase 3: Brain with LangGraph Orchestration"
-version: v1
-date: "2026-02-02"
-status: completed
+title: "Phase 03: Brain Orchestration"
+version: v0.2-refresh
+date: "2026-05-01"
+status: refreshed
+public_scope: curated
 ---
 
-# Phase 3: Brain (LangGraph Orchestration)
+# Phase 03: Brain Orchestration
 
-## Overview
+## Purpose
 
-The Brain is ARIA's core orchestration engine, responsible for planning, decision-making, and coordinating all other components. Built on LangGraph, it implements a state machine that manages the complete task execution lifecycle.
+Phase 03 builds the Brain: the orchestration layer that turns a user goal into
+structured plans, executable steps, observations, recovery decisions, and HITL
+requests.
 
-## Architecture
+## v0.2 Refresh
 
-### State Graph
+The private system hardened Brain behavior around typed state, planner/executor
+boundaries, trace ids, step ids, HITL resume behavior, and safer reasoning
+contracts. The public refresh documents that direction without publishing the
+full private orchestration stack.
 
-The Brain uses a LangGraph StateGraph with the following nodes:
+## Public Deliverables
 
-- **Planner**: Decomposes user goals into executable steps
-- **Executor**: Sends steps to Hand for execution
-- **Observer**: Retrieves observations from Eye
-- **HITL**: Manages human-in-the-loop interventions
+- LangGraph-style state-machine architecture.
+- Planner, Executor, Observer, and HITL node responsibilities.
+- Explicit separation between planning and tool execution.
+- State and execution-history concepts used by later replay work.
 
-### State Management
+## Runtime Boundaries
 
-**AgentState** includes:
-- Session and task information
-- Execution plan with steps
-- Current observations
-- Memory context
-- HITL requests and responses
-- Error handling and retry state
+- Planner produces structured steps.
+- Executor routes capability calls through Hand.
+- Observer records evidence and state changes.
+- HITL gates sensitive or ambiguous operations.
 
-### Flow Control
+## Completion Criteria
 
-The graph uses conditional edges to route execution:
-1. **Planning** → Create execution plan
-2. **Observation** → Get current UI state
-3. **Execution** → Execute capability via Hand
-4. **HITL** → Request human intervention when needed
-5. **Completion** → Task finished or failed
+- Brain does not directly own browser or desktop internals.
+- Plans have step ids that can be referenced by events and traces.
+- Failures can route to retry, re-plan, HITL, or stop.
 
-## Key Components
+## Next
 
-### LLM Client Abstraction
-
-- **Provider Support**: Ollama (local) and OpenAI/Anthropic (cloud)
-- **Role-based Models**: Different models for reasoning, coding, vision
-- **Streaming Support**: Async streaming for real-time responses
-- **Error Handling**: Retry logic and fallback mechanisms
-
-### Planner Node
-
-- **Goal Decomposition**: Breaks complex goals into atomic steps
-- **Context Integration**: Uses episodic and semantic memory
-- **Skill Matching**: Leverages learned skills when applicable
-- **Policy Awareness**: Considers safety policies in planning
-
-### Executor Node
-
-- **Capability Routing**: Routes steps to appropriate Hand adapters
-- **Result Processing**: Handles success, failure, and retry scenarios
-- **Error Recovery**: Implements retry logic with exponential backoff
-- **Event Emission**: Records all execution events
-
-### Observer Node
-
-- **Eye Integration**: Retrieves UI observations
-- **State Detection**: Identifies special states (captcha, login, etc.)
-- **HITL Triggering**: Requests human intervention when needed
-- **Observation History**: Maintains context of UI changes
-
-### HITL Node
-
-- **Request Management**: Creates and tracks human intervention requests
-- **Response Handling**: Processes human approvals, rejections, corrections
-- **Timeout Management**: Handles cases where human doesn't respond
-- **Learning Integration**: Feeds human feedback to learning system
-
-## Integration
-
-### With Event Bus
-
-All Brain activities emit events:
-- `brain.plan.created`: When a plan is generated
-- `brain.step.started`: When a step begins execution
-- `brain.step.completed`: When a step finishes
-
-### With Memory
-
-- **Context Building**: Retrieves relevant memories for planning
-- **State Persistence**: Stores execution state for resumption
-- **Learning Input**: Provides data for skill/policy extraction
-
-### With Hand
-
-- **Capability Execution**: Sends capability calls to Hand
-- **Result Processing**: Handles execution results
-- **Error Handling**: Manages failures and retries
-
-### With Eye
-
-- **Observation Requests**: Requests UI state from Eye
-- **State Analysis**: Processes observations for decision-making
-- **Fallback Triggers**: Activates vision fallback when needed
-
-## Safety Integration
-
-- **Pre-execution Checks**: Validates capabilities before execution
-- **Risk Assessment**: Evaluates action risk levels
-- **Policy Enforcement**: Applies safety policies
-- **HITL Integration**: Requests human confirmation for high-risk actions
-
-## Checkpointing
-
-- **State Persistence**: Saves state at each node transition
-- **Resume Capability**: Can resume from any checkpoint
-- **Replay Support**: Enables deterministic replay of executions
-
-## Performance Considerations
-
-- **Async Operations**: All I/O operations are asynchronous
-- **Parallel Execution**: Multiple steps can execute in parallel when safe
-- **Resource Management**: Efficient LLM and adapter usage
-- **Caching**: Caches frequently accessed data
-
-## Testing
-
-- **Unit Tests**: Individual node testing
-- **Integration Tests**: Full graph execution tests
-- **E2E Tests**: Complete workflow tests with real components
-
-## Next Steps
-
-After completing this phase, the system has:
-- ✅ Complete orchestration engine
-- ✅ Goal decomposition and planning
-- ✅ Execution coordination
-- ✅ Human-in-the-loop support
-
-**Next Phase**: [Phase 4: Eye (Perception)](phase-04-eye.md)
+[Phase 04: Eye Perception](phase-04-eye.md)

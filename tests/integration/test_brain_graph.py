@@ -22,13 +22,17 @@ class FakeLLM:
                 '{"steps": ['
                 '{"step_id": "step_1", "action": "Open", '
                 '"capability": "web.navigate", '
-                '"parameters": {"url": "https://example.com"}}'
+                '"parameters": {"url": "https://www.linkedin.com/jobs/view/test"}}'
                 ']}'
             ),
             model="fake",
             tokens_used=10,
             finish_reason="stop",
         )
+
+
+def get_fake_llm() -> FakeLLM:
+    return FakeLLM()
 
 
 class FakeMemoryManager:
@@ -65,7 +69,7 @@ class FakeEye:
 
 @pytest.mark.asyncio
 async def test_brain_graph_runs(monkeypatch: pytest.MonkeyPatch) -> None:
-    monkeypatch.setattr(planner_module, "get_llm_client", lambda: FakeLLM())
+    monkeypatch.setattr(planner_module, "get_llm_client", get_fake_llm)
     monkeypatch.setattr(planner_module, "MemoryManager", FakeMemoryManager)
     async def fake_get_hand():
         return FakeHand()

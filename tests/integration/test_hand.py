@@ -1,7 +1,29 @@
+from datetime import UTC, datetime
+
 import pytest
 
 from aria.core.hand import Hand
 from aria.core.hand.capability import Capability, CapabilityResult
+from aria.core.safety.rate_limiter import RateLimitResult
+from aria.core.safety.safety_gate import get_safety_gate
+
+
+class _AllowingRateLimiter:
+    async def check(self, user_id, action="default"):
+        _ = user_id
+        _ = action
+
+        return RateLimitResult(
+            allowed=True,
+            limit=100,
+            remaining=99,
+            reset_at=datetime.now(UTC),
+            retry_after=None,
+        )
+
+    async def consume(self, user_id, action="default", cost=1):
+        _ = cost
+        return await self.check(user_id, action)
 
 
 @pytest.mark.asyncio
@@ -59,11 +81,17 @@ async def test_execute_ml(monkeypatch) -> None:
 
     hand = Hand()
     await hand.initialize()
+    get_safety_gate().rate_limiter = _AllowingRateLimiter()
 
     result = await hand.execute(
         "ml.extract_job_info",
         {"text": "Software Engineer at Example."},
-        {"session_id": "test", "domain": "job_apply"},
+        {
+            "session_id": "test",
+            "domain": "job_apply",
+            "has_observation": True,
+            "user_preferences": {"auto_approve": True},
+        },
     )
 
     assert result.success

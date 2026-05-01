@@ -1,73 +1,43 @@
 ---
-title: "Phase 1: Event Model & Data Infrastructure"
-version: v1
-date: "2026-02-02"
-status: completed
+title: "Phase 01: Events and Data Infrastructure"
+version: v0.2-refresh
+date: "2026-05-01"
+status: refreshed
+public_scope: curated
 ---
 
-# Phase 1: Event Model and Data Infrastructure
+# Phase 01: Events and Data Infrastructure
 
-## Overview
+## Purpose
 
-This phase implements the foundational data infrastructure for ARIA, establishing event-driven architecture with Kafka/Redpanda for event streaming and Redis for state management. This infrastructure enables full auditability, replay capability, and decoupled service communication.
+Phase 01 defines the data backbone for ARIA: event envelopes, event topics,
+state storage, and durable communication between runtime components.
 
-## Components Implemented
+## v0.2 Refresh
 
-### Event Model
+The current system treats events as an audit and coordination plane. The public
+refresh keeps the original Kafka/Redpanda and Redis intent while aligning the
+documentation with later trace, replay, and governance work.
 
-The event model provides a structured way to record all system activities:
+## Public Deliverables
 
-- **EventEnvelope**: Base structure for all events with correlation IDs
-- **Event Types**: Categorized events (brain, hand, eye, human, learning, session)
-- **Serialization**: JSON-based serialization for Kafka compatibility
-- **Versioning**: Event schema versioning for backward compatibility
+- Kafka-compatible event bus through Redpanda.
+- Redis-backed state storage.
+- Event envelope concepts for correlation and audit.
+- Topic naming conventions for Brain, Hand, Eye, Human, and Learning events.
 
-### Event Bus (Kafka/Redpanda)
+## Runtime Boundaries
 
-- **AsyncEventBus**: Asynchronous event publisher and subscriber
-- **Topic Management**: Automatic topic creation and configuration
-- **Consumer Groups**: Support for multiple consumers with offset management
-- **Error Handling**: Retry logic and dead letter queue support
+- Events carry facts and references, not private binary artifacts.
+- State store is responsible for fast runtime state, not permanent evidence.
+- Event schemas should be versioned before compatibility-sensitive changes.
 
-### State Store (Redis)
+## Completion Criteria
 
-- **Session State**: Per-session state management with TTL
-- **Working Memory**: Circular buffer for current task context
-- **Cache Layer**: General-purpose caching with expiration
-- **Distributed Locks**: Coordination primitives for concurrent operations
+- Event producers and consumers use explicit topic names.
+- Events include enough ids to reconstruct execution flow.
+- State persistence is separated from event publication.
 
-## Architecture Decisions
+## Next
 
-- **Event Sourcing**: All actions are recorded as events for full auditability
-- **Refs-only Events**: Large payloads stored in Artifact Store, events carry references
-- **Content-Addressed Refs**: SHA-256 hashes for snapshot deduplication
-- **At-least-once Delivery**: Consumer idempotency required
-
-## Key Features
-
-- **Replay Capability**: Complete execution traces can be replayed
-- **Observability**: Structured events enable comprehensive monitoring
-- **Decoupling**: Services communicate via events, not direct calls
-- **Learning Pipeline**: Events feed into learning system for skill/policy extraction
-
-## Integration Points
-
-- **Brain**: Emits planning and execution events
-- **Hand**: Emits capability execution events
-- **Eye**: Emits perception and observation events
-- **Learning**: Consumes events for artifact generation
-
-## Testing
-
-- **Unit Tests**: Event model validation and serialization
-- **Integration Tests**: Kafka/Redis connectivity and operations
-- **E2E Tests**: Full event flow from emission to consumption
-
-## Next Steps
-
-After completing this phase, the system has:
-- ✅ Event-driven communication infrastructure
-- ✅ State management capabilities
-- ✅ Foundation for replay and observability
-
-**Next Phase**: [Phase 2: Memory System](phase-02-memory.md)
+[Phase 02: Memory System](phase-02-memory.md)

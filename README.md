@@ -4,137 +4,145 @@
 
 ### Adaptive Reasoning & Intelligent Automation
 
-<img src="Docs/English/phases/ARIA system diagram and logo design.png" alt="ARIA Cognitive Architecture" width="800"/>
+<img src="Docs/English/phases/ARIA system diagram and logo design.png" alt="ARIA cognitive architecture" width="820"/>
 
-*An agentic AI system for autonomous task execution with human-in-the-loop safety*
+**A contract-first agentic AI engineering platform for observable, replay-aware, human-supervised automation.**
 
 [![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
 [![License: AGPL v3](https://img.shields.io/badge/license-AGPL%20v3-blue?style=for-the-badge)](LICENSE)
-[![Tests](https://img.shields.io/badge/tests-81%20total%20%7C%2077%20passed-success?style=for-the-badge&logo=pytest)](tests/)
-[![Code Style: Ruff](https://img.shields.io/badge/code%20style-ruff-000000?style=for-the-badge)](https://github.com/astral-sh/ruff)
-
-[![Docker](https://img.shields.io/badge/Docker-mahdinavaei%2Faria-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://hub.docker.com/r/mahdinavaei/aria)
-[![Hugging Face](https://img.shields.io/badge/🤗%20Hugging%20Face-Space-orange?style=for-the-badge)](https://huggingface.co/spaces/MadhiNavaei/aria)
+[![Public Preview](https://img.shields.io/badge/public%20preview-v0.2-blue?style=for-the-badge)](Docs/English/phases/README.md)
+[![Replay Contract](https://img.shields.io/badge/tests-replay%20contract-success?style=for-the-badge&logo=pytest)](tests/unit/test_replay_trace.py)
 
 [![LangGraph](https://img.shields.io/badge/LangGraph-Orchestration-blue?style=flat-square)](https://github.com/langchain-ai/langgraph)
-[![Kafka](https://img.shields.io/badge/Kafka-Event%20Sourcing-231F20?style=flat-square&logo=apachekafka)](https://kafka.apache.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-Runtime-009688?style=flat-square&logo=fastapi)](https://fastapi.tiangolo.com/)
 [![Redis](https://img.shields.io/badge/Redis-State%20Store-DC382D?style=flat-square&logo=redis)](https://redis.io/)
-[![Qdrant](https://img.shields.io/badge/Qdrant-Vector%20DB-24B47E?style=flat-square)](https://qdrant.tech/)
+[![Qdrant](https://img.shields.io/badge/Qdrant-Vector%20Memory-24B47E?style=flat-square)](https://qdrant.tech/)
 
 </div>
 
 ---
 
-## Why ARIA?
+## Why ARIA Exists
 
-ARIA is not a prompt-chain demo or a single-purpose automation script.
+Most agent demos stop at prompting, tool calls, or browser automation. ARIA is designed around the harder engineering problems that appear when agents must run, fail, resume, explain themselves, and stay inside safety boundaries.
 
-It is a production-grade agentic AI system designed to:
-- **Observe real interfaces** using vision
-- **Plan and execute actions** safely
-- **Learn from outcomes** and human feedback
-- **Maintain full auditability** via event sourcing
+ARIA separates the system into explicit runtime planes:
 
-> **Designed for real-world constraints**
->
-> ARIA is built to run with **local LLMs**, supports **both English and Persian**,
-> and is optimized for **consumer-grade GPUs (8GB VRAM)**.
-> This makes it suitable for privacy-sensitive, cost-aware,
-> and resource-constrained environments.
+- **Brain**: planning, reasoning, orchestration, HITL routing, and state transitions.
+- **Eye**: screenshot capture, VLM/OCR perception, UI state recognition, and UIRef extraction.
+- **Hand**: browser, desktop, ML, and vendor-backed execution adapters.
+- **Memory**: working, episodic, semantic, and learning-oriented memory layers.
+- **Safety**: domain policy, risk detection, PII protection, captcha handling, rate limits, and human approval gates.
+- **Event & Replay**: structured events, trace ids, step ids, deterministic trace envelopes, and audit-friendly execution history.
+
+The result is not a single automation bot. It is a platform architecture for building reliable agentic workflows under real-world constraints.
 
 ---
 
-## Overview
+## Current Public Release
 
-**ARIA** is a modular, event-sourced AI agent framework designed for complex automation tasks that require visual perception, intelligent planning, and safe execution with human oversight. Built with a cognitive architecture inspired by human cognition (Brain/Eye/Hand/Memory), ARIA can observe, reason, plan, and act autonomously while maintaining safety through human-in-the-loop checkpoints.
+This repository is a **curated public preview** of ARIA.
 
-The Job Apply automation is the first production plugin built on ARIA, demonstrating the platform's capabilities — not defining its scope.
+The earlier public line, `v0.1.x`, covered the first foundation phases. The current `v0.2` preview refreshes those foundations and publishes the architecture up to **Phase 12** without dumping the full private workspace.
 
-### Key Differentiators
+### What v0.2 Publishes
 
-- **Cognitive Architecture**: Modular Brain (planning), Eye (perception), Hand (execution), Memory (context) design
-- **Event Sourcing**: Full audit trail and replay capability via Kafka/Redpanda
-- **Human-in-the-Loop**: Safety gates for sensitive actions (CAPTCHA, login, payment)
-- **Continuous Learning**: Extracts skills and policies from successful executions
-- **Vision-First**: VLM-powered UI understanding with multi-locator fallback
+- Refreshed public documentation for **Phase 00 through Phase 12**.
+- A clearer architecture story from infrastructure to core completion.
+- A small but real replay/trace contract module:
+  - `TraceEnvelope`
+  - `StepRecord`
+  - `ReplayRequest`
+  - deterministic content hashing
+  - Pydantic validation of replay-critical invariants
+- Targeted tests for the replay contract slice.
+- A roadmap for the next public releases: observability, artifacts/replay hardening, trust governance, MCP, and control-plane UI.
+
+### What Remains Private
+
+Some newer internal work is intentionally not published in this preview: large evidence artifacts, private run outputs, QLoRA experiments, long-horizon planning work, advanced policy-learning internals, full Next.js control-plane implementation, private traces, and environment-specific runtime data.
+
+That boundary is deliberate. The public repo is meant to be readable, reviewable, and safe to evaluate.
 
 ---
 
-## Architecture
+## Architecture Snapshot
 
-ARIA follows a cognitive architecture where perception, reasoning, execution, memory, and learning are explicitly separated, observable, and independently evolvable.
+```text
+                             ARIA Runtime
 
-### System Components
-
-```
-┌─────────────────────────────────────────────────────────────────────────┐
-│                              ARIA Core                                   │
-├─────────────────────────────────────────────────────────────────────────┤
-│                                                                          │
-│   ┌─────────┐    ┌─────────┐    ┌─────────┐    ┌─────────────────────┐  │
-│   │  Brain  │◄──►│   Eye   │◄──►│  Hand   │◄──►│   Memory Manager    │  │
-│   │ Planner │    │ VLM/OCR │    │ Actions │    │ Working/Episodic/   │  │
-│   │Executor │    │ UIRef   │    │ Browser │    │ Semantic            │  │
-│   │Observer │    │Screenshot│   │ Desktop │    └─────────────────────┘  │
-│   │  HITL   │    └─────────┘    │   ML    │                             │
-│   └─────────┘                   └─────────┘                             │
-│        │                             │                                   │
-│        ▼                             ▼                                   │
-│   ┌─────────────────────────────────────────────────────────────────┐   │
-│   │                    Event Bus (Kafka/Redpanda)                    │   │
-│   └─────────────────────────────────────────────────────────────────┘   │
-│        │                             │                                   │
-│        ▼                             ▼                                   │
-│   ┌──────────────┐           ┌──────────────┐                           │
-│   │ State Store  │           │ Vector Store │                           │
-│   │   (Redis)    │           │   (Qdrant)   │                           │
-│   └──────────────┘           └──────────────┘                           │
-│                                                                          │
-├─────────────────────────────────────────────────────────────────────────┤
-│                           Plugins & Adapters                             │
-├─────────────────────────────────────────────────────────────────────────┤
-│   ┌────────────────┐  ┌────────────────┐  ┌────────────────┐            │
-│   │  Job Apply     │  │  Browser-Use   │  │   OpenAdapt    │            │
-│   │  (LinkedIn,    │  │  (Playwright)  │  │  (Recording)   │            │
-│   │   Indeed)      │  │                │  │                │            │
-│   └────────────────┘  └────────────────┘  └────────────────┘            │
-└─────────────────────────────────────────────────────────────────────────┘
+   User / API / UI
+        |
+        v
+   +----------------------+       +----------------------+
+   | Brain                |<----->| Memory               |
+   | planner / executor   |       | working / episodic   |
+   | observer / HITL      |       | semantic / learning  |
+   +----------+-----------+       +----------+-----------+
+              |                              ^
+              v                              |
+   +----------------------+       +----------+-----------+
+   | Safety & Policy      |<----->| Event / Trace Plane  |
+   | risk / PII / HITL    |       | envelope / replay    |
+   | domain / rate limit  |       | audit / evidence     |
+   +----------+-----------+       +----------+-----------+
+              |
+              v
+   +----------------------+       +----------------------+
+   | Hand                 |<----->| Eye                  |
+   | browser / desktop    |       | screenshots / VLM    |
+   | tools / vendors      |       | OCR / UIRef          |
+   +----------------------+       +----------------------+
 ```
 
-<div align="center">
-
-<img src="Docs/English/phases/ARIA AI system workflow and interface.png" alt="ARIA Workflow" width="800"/>
-
-*End-to-end workflow: Planning → Observation → Execution → Safety Gates → Learning*
-
-</div>
+The main design choice is explicit separation of responsibilities. The Brain should not know browser internals. The Hand should not invent policy. The Eye should describe state, not execute actions. The Event/Trace plane should make every meaningful action reconstructable.
 
 ---
 
-## Features
+## Phase Timeline
 
-### Core Capabilities
+The public `v0.2` release line now documents the project through Phase 12.
 
-- **Event-sourced execution** with full replay support
-- **Human-in-the-loop safety** for sensitive actions
-- **Continuous learning** from successful executions
-- **Vision-first UI understanding** with fallback strategies
-- **Multi-adapter execution** (Browser, Desktop, ML inference)
-- **Three-tier memory** (Working, Episodic, Semantic)
+| Phase | Public Status | Focus |
+|---|---:|---|
+| [00](Docs/English/phases/phase-00-foundation.md) | refreshed | Repository, configuration, Docker, logging, and base layout |
+| [01](Docs/English/phases/phase-01-events-data.md) | refreshed | Event envelope, Kafka/Redpanda, Redis state, topic taxonomy |
+| [02](Docs/English/phases/phase-02-memory.md) | refreshed | Working, episodic, semantic memory and vector storage |
+| [03](Docs/English/phases/phase-03-brain.md) | refreshed | LangGraph Brain, planner, executor, observer, HITL |
+| [04](Docs/English/phases/phase-04-eye.md) | refreshed | Screenshot, VLM/OCR perception, UIRef extraction |
+| [05](Docs/English/phases/phase-05-hand.md) | refreshed | Browser/desktop execution adapters and capability routing |
+| [06](Docs/English/phases/phase-06-job-apply.md) | refreshed | First domain plugin: job search, matching, application flow |
+| [07](Docs/English/phases/phase-07-learning.md) | refreshed | Skill extraction, policy learning, feedback loops |
+| [08](Docs/English/phases/phase-08-ui.md) | refreshed | Operator UI, live view, HITL, bilingual/RTL support |
+| [09](Docs/English/phases/phase-09-testing.md) | refreshed | Unit, integration, E2E, CI, documentation hardening |
+| [10](Docs/English/phases/phase-10-safety.md) | refreshed | Safety gate, domain policy, PII, captcha, rate limits |
+| [11](Docs/English/phases/phase-11-vendor-integrations.md) | public preview | AIHawk, Skyvern, OpenAdapt, browser-use integration boundaries |
+| [12](Docs/English/phases/phase-12-platform-consolidation.md) | public preview | Core completion, event-bus abstraction, trace/replay contracts |
 
-### Production Features
+See the full phase index: [Docs/English/phases/README.md](Docs/English/phases/README.md).
 
-- **Persian Language Support**: Native Farsi STT (Whisper) and embedding models
-- **Real-time UI**: Streamlit dashboard with live browser view and activity logs
-- **REST API & WebSocket**: Full programmatic control and real-time updates
+---
 
-<div align="center">
+## Public v0.2 Code Slice
 
-<img src="Docs/English/phases/ARIA AI system flowchart infographic.png" alt="ARIA System Flowchart" width="800"/>
+The code added in this preview is intentionally small and reviewable:
 
-*Complete system flow: Event-driven architecture with continuous learning loop*
+```text
+src/aria/core/replay/
+├── __init__.py
+└── trace.py
 
-</div>
+tests/unit/
+└── test_replay_trace.py
+```
+
+It introduces replay-safe contracts without exposing private traces or internal evidence:
+
+- terminal traces require `completed_at`,
+- failed steps require an explicit `error`,
+- step ids are unique within a trace,
+- trace hashes are deterministic,
+- replay requests can verify integrity before execution.
 
 ---
 
@@ -143,313 +151,157 @@ ARIA follows a cognitive architecture where perception, reasoning, execution, me
 ### Prerequisites
 
 - Python 3.11+
-- Docker & Docker Compose
-- 8GB+ RAM recommended
-- **LLM Models**: See [MODELS.md](Docs/English/MODELS.md) for download instructions
+- Docker and Docker Compose
+- Redis, Redpanda/Kafka, and Qdrant for full integration scenarios
+- Local or remote LLM provider configured through environment variables
 
-### Minimal Run (Headless)
-
-ARIA can be run without UI for experimentation:
+### Install
 
 ```bash
-# Start infrastructure services
-docker compose up -d
-
-# Run basic agent (example)
-python examples/run_basic_agent.py
-```
-
-This minimal setup skips UI and learning components and is intended for quick experimentation and validation.
-
-### Installation
-
-```bash
-# Clone the repository
-git clone https://github.com/mahdinavaei/aria.git
+git clone https://github.com/MahdiNavaei/aria.git
 cd aria
 
-# Create virtual environment
 python -m venv .venv
 
-# Activate (Linux/macOS)
-source .venv/bin/activate
-
-# Activate (Windows PowerShell)
+# Windows PowerShell
 .\.venv\Scripts\Activate.ps1
 
-# Install dependencies
+# Linux/macOS
+source .venv/bin/activate
+
 pip install -e ".[dev]"
-
-# Copy environment configuration
 cp .env.example .env
-
-# Create required directories (if they don't exist)
-mkdir -p data/profiles data/jobs data/applications data/artifacts logs
-
-# Download LLM models (required)
-# See Docs/English/MODELS.md for detailed instructions
-python scripts/download_models.py --models core
-
-# Start infrastructure services
-docker compose up -d
-
-# Verify services are healthy
-docker compose ps
 ```
 
-> **⚠️ Important**: LLM model files are **not included** in this repository. You must download them separately. See [MODELS.md](Docs/English/MODELS.md) for complete setup instructions.
-
-### Required Files & Directories
-
-The following files and directories are **not included** in the repository and will be created automatically or need to be set up:
-
-| Item | Status | How to Create |
-|------|--------|---------------|
-| `.env` | ⚠️ Required | Copy from `.env.example`: `cp .env.example .env` |
-| `data/` directories | ✅ Auto-created | Created automatically on first run, or manually: `mkdir -p data/profiles data/jobs data/applications` |
-| `artifacts/` directory | ✅ Auto-created | Created automatically by the learning system |
-| `logs/` directory | ✅ Auto-created | Created automatically when logging starts |
-| LLM model files | ⚠️ Required | Download separately - see [MODELS.md](Docs/English/MODELS.md) |
-
-**Note:** All runtime directories (`data/`, `artifacts/`, `logs/`) are gitignored and will be created automatically when needed. You only need to create `.env` from `.env.example` and download LLM models.
-
-### Running the Application
+### Run the Targeted v0.2 Verification
 
 ```bash
-# Start the API server
-uvicorn aria.api.main:app --host 0.0.0.0 --port 8000
+pytest tests/unit/test_replay_trace.py -q
+ruff check src/aria/core/replay tests/unit/test_replay_trace.py
+```
 
-# In another terminal, start the Streamlit UI
+Expected targeted result:
+
+```text
+4 passed
+All checks passed
+```
+
+### Run the API and Legacy UI
+
+```bash
+docker compose up -d
+uvicorn aria.api.main:app --host 0.0.0.0 --port 8000
 streamlit run src/aria/ui/app.py
 ```
 
-Access the dashboard at `http://localhost:8501`
+The legacy Streamlit dashboard is available at `http://localhost:8501`.
 
 ---
 
-## Model Setup
+## Repository Layout
 
-**⚠️ Important**: LLM model files are **not included** in this repository due to their large size. You must download them separately before running ARIA.
-
-### Quick Setup
-
-```bash
-# Option 1: Use the automated download script (recommended)
-pip install huggingface-hub
-python scripts/download_models.py --models core
-
-# Option 2: Download manually using Ollama
-ollama pull qwen2.5:7b
-
-# Option 3: Download from HuggingFace (see Docs/English/MODELS.md for links)
-```
-
-### Detailed Instructions
-
-For complete model setup instructions, including:
-- Required vs optional models
-- Download links and methods
-- Configuration and verification
-- Troubleshooting
-
-👉 **See [MODELS.md](Docs/English/MODELS.md)** for the complete guide.
-
----
-
-## Project Structure
-
-```
+```text
 aria/
 ├── src/aria/
-│   ├── adapters/          # External service adapters
-│   ├── api/               # FastAPI REST & WebSocket
-│   ├── core/              # Core components (Brain, Eye, Hand, Memory)
-│   ├── plugins/           # Domain plugins (Job Apply, etc.)
-│   └── ui/                # Streamlit dashboard
-├── config/                # YAML configuration files
-├── tests/                 # Test suite (81 tests)
-└── Docs/                  # Documentation
+│   ├── adapters/          # Browser, desktop, Redis, Kafka, ML adapters
+│   ├── api/               # FastAPI routes and WebSocket runtime
+│   ├── core/
+│   │   ├── brain/         # Planner, executor, observer, HITL graph nodes
+│   │   ├── eye/           # Screenshot, VLM/OCR, UIRef perception
+│   │   ├── hand/          # Capability abstraction and execution boundary
+│   │   ├── learning/      # Skill extraction and policy feedback
+│   │   ├── memory/        # Working, episodic, semantic memory
+│   │   ├── replay/        # v0.2 public trace/replay contract
+│   │   └── safety/        # Domain, risk, PII, captcha, rate-limiting
+│   ├── plugins/           # Domain plugins, starting with job apply
+│   └── ui/                # Legacy Streamlit operator surface
+├── config/                # YAML configuration
+├── Docs/English/          # Public architecture and phase docs
+├── tests/                 # Unit, integration, and E2E tests
+└── vendor/                # Vendored integrations and license-governed sources
 ```
-
-See full structure and module responsibilities in [Docs/English/project-structure.md](Docs/English/project-structure.md).
 
 ---
 
-## Configuration
+## Engineering Principles
 
-ARIA uses a layered configuration system:
+ARIA is built around production-oriented agent constraints:
 
-1. **YAML files** in `config/` (base settings)
-2. **Environment variables** (overrides)
-3. **`.env` file** (local development)
-
-Key configuration files:
-
-| File | Purpose |
-|------|---------|
-| `config/default.yaml` | Base configuration |
-| `config/llm.yaml` | LLM provider settings (Ollama/OpenAI) |
-| `config/memory.yaml` | Memory tiers and vector store |
-| `config/eye.yaml` | VLM and screenshot settings |
-| `config/hand.yaml` | Browser/desktop automation |
-| `config/job_apply.yaml` | Job application plugin |
+- **Schema-first boundaries**: agent state, tool calls, traces, and replay requests are structured.
+- **Human authority**: sensitive actions route through HITL instead of silent execution.
+- **Auditability**: every serious runtime path should be explainable through ids, events, and artifacts.
+- **Local-first capability**: local LLMs and local state stores are first-class for privacy and cost control.
+- **Progressive public releases**: new private capabilities are published only after they can be explained, tested, and separated from private artifacts.
 
 ---
 
-## Testing
+## Next Public Phases
 
-<div align="center">
+The next public releases should be staged rather than dumped all at once.
 
-![ARIA Test Results](Docs/English/phases/aria-test-results.png)
+### Phase 13: Observability and Runtime Telemetry
 
-</div>
+Goal: publish the first clean observability slice with structured logs, metrics naming, trace correlation, latency budgets, and operator-facing health signals.
 
-```bash
-# Run all tests
-pytest tests/ -v
+Expected public outputs:
 
-# Run unit tests only (fast, no dependencies)
-pytest tests/unit/ -v
+- trace context propagation notes,
+- metric taxonomy,
+- health and readiness documentation,
+- minimal tests around trace ids and event correlation.
 
-# Run integration tests (requires Docker services)
-docker compose up -d
-pytest tests/integration/ -v
+### Phase 14: Artifacts, Evidence Packs, and Replay Hardening
 
-# Run end-to-end tests
-ARIA_RUN_E2E=1 pytest tests/e2e/ -v -m e2e
+Goal: show how ARIA records execution evidence without leaking private data. This phase should introduce artifact manifests, redaction rules, replay-safe summaries, and failure records.
 
-# Code quality checks
-ruff check src/aria/
-ruff check tests/
-mypy src/aria/
-```
+Expected public outputs:
 
-**Test Coverage:**
-- Unit Tests: 49 tests covering core logic
-- Integration Tests: 28 tests with real services
-- E2E Tests: 3 full workflow tests
-- **Total: 81 tests (77 passed, 4 skipped intentionally)**
+- artifact manifest schema,
+- redaction policy notes,
+- replay/failure examples with synthetic data,
+- evidence-pack validation tests.
+
+### Phase 15: Trust Envelope and Governance Gates
+
+Goal: document and publish a first governance layer around approvals, risk levels, trust scopes, RBAC expectations, and policy-gated execution.
+
+Expected public outputs:
+
+- trust envelope schema,
+- approval lifecycle,
+- safety escalation matrix,
+- policy compatibility tests.
+
+Later public releases can then introduce MCP runtime selection, frontend control-plane previews, learning evaluation, and adaptive routing as separate, readable milestones.
 
 ---
 
 ## Documentation
 
-Comprehensive documentation is available in the `Docs/` directory:
+Core docs:
 
-- **[Architecture Overview](Docs/English/architecture.md)** - System design and components
-- **[Project Structure](Docs/English/project-structure.md)** - Codebase organization
-- **[Event Model](Docs/English/event-model.md)** - Event sourcing design
-- **[Testing Strategy](Docs/English/testing-strategy.md)** - Test approach and coverage
-- **[Model Setup Guide](Docs/English/MODELS.md)** - LLM model download and configuration
+- [Architecture Overview](Docs/English/architecture.md)
+- [Project Structure](Docs/English/project-structure.md)
+- [Event Model](Docs/English/event-model.md)
+- [Safety and Guardrails](Docs/English/safety-and-guardrails.md)
+- [Testing Strategy](Docs/English/testing-strategy.md)
+- [Phase Index](Docs/English/phases/README.md)
 
-### Architecture Decision Records (ADRs)
+Key ADRs:
 
 - [ADR-001: Event Sourcing](Docs/English/adr/ADR-001-event-sourcing.md)
+- [ADR-002: Brain/Hand Capability Contract](Docs/English/adr/ADR-002-brain-hand-capability-contract.md)
 - [ADR-006: HITL First-Class](Docs/English/adr/ADR-006-hitl-first-class.md)
-- [ADR-007: Vision Fallback](Docs/English/adr/ADR-007-vision-fallback.md)
-
----
-
-## Tech Stack
-
-| Category | Technologies |
-|----------|-------------|
-| **Orchestration** | LangGraph, LangChain |
-| **LLM** | Ollama (local), OpenAI (cloud) |
-| **Vision** | Qwen-VL, custom VLM models |
-| **Automation** | Playwright, PyAutoGUI, PyWinAuto |
-| **Event Streaming** | Redpanda (Kafka-compatible) |
-| **State Store** | Redis |
-| **Vector DB** | Qdrant |
-| **Memory** | Mem0 |
-| **API** | FastAPI, WebSockets |
-| **UI** | Streamlit |
-| **Testing** | pytest, pytest-asyncio |
-| **Code Quality** | Ruff, MyPy |
-
----
-
-## Roadmap (High-Level)
-
-ARIA is under active development. Upcoming work focuses on:
-
-- **Production Hardening**  
-  Deployment profiles, resource isolation, and operational tooling
-
-- **Plugin Ecosystem**  
-  Additional plugins (Email, Calendar, CRM)
-
-- **Advanced Observability**  
-  Outcome analytics, replay-based debugging
-
-- **Security & Governance**  
-  Fine-grained permissions and audit controls
-
-Detailed design discussions are captured in the documentation and ADRs.
-
----
-
-## Security
-
-Security is a core design principle in ARIA. For information about:
-
-- Reporting security vulnerabilities
-- Supported versions and security updates
-- Security best practices for deployment
-- Incident response procedures
-
-Please see our [Security Policy](SECURITY.md).
-
-**⚠️ Security Reminder:**
-- Never commit `.env` files or credentials to version control
-- Use local LLMs to avoid data exfiltration
-- Enable Human-in-the-Loop (HITL) safety gates for production use
-- Review the security documentation before deploying to production
-
----
-
-## Contributing
-
-Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for:
-
-- Code style guidelines (Ruff, type hints)
-- Commit message conventions
-- Pull request process
-- Testing requirements
+- [ADR-009: Safety Gates](Docs/English/adr/ADR-009-safety-gates.md)
 
 ---
 
 ## License
 
-This project is licensed under the **GNU Affero General Public License v3.0 (AGPL-3.0)** - see the [LICENSE](LICENSE) file for details.
+ARIA is licensed under the **GNU Affero General Public License v3.0 or later**. See [LICENSE](LICENSE), [NOTICE](NOTICE), [THIRD_PARTY_LICENSES.md](THIRD_PARTY_LICENSES.md), and [LICENSE_COMPLIANCE.md](LICENSE_COMPLIANCE.md).
 
-### What This Means
-
-**AGPL v3** is a strong copyleft license that ensures software freedom:
-
-✅ **You CAN:**
-- Use ARIA for any purpose (personal, commercial, research)
-- Modify and distribute ARIA
-- Use ARIA as a network service (API, SaaS, web app)
-
-⚠️ **You MUST:**
-- Provide source code to users who interact with your modified version over a network
-- License your modifications under AGPL v3
-- Keep all copyright and license notices intact
-- Disclose your source code if you run ARIA as a network service
-
-📋 **Additional Information:**
-- [THIRD_PARTY_LICENSES.md](THIRD_PARTY_LICENSES.md) - Complete list of all third-party licenses
-- [LICENSE_COMPLIANCE.md](LICENSE_COMPLIANCE.md) - Detailed compliance guide and FAQs
-
-### Why AGPL v3?
-
-ARIA includes components licensed under AGPL v3 (AIHawk, Skyvern), which ensures:
-- The entire ecosystem remains open-source
-- Network service operators must share their improvements
-- Users always have access to the source code
-
-**Note:** If you need a more permissive license for your use case, you can remove the AGPL-licensed components and use only the MIT-licensed parts (browser-use, OpenAdapt). See [LICENSE_COMPLIANCE.md](LICENSE_COMPLIANCE.md) for details.
+The AGPL license is intentional because ARIA includes AGPL-governed vendor components and is designed for network-accessible agent runtimes.
 
 ---
 
@@ -457,24 +309,12 @@ ARIA includes components licensed under AGPL v3 (AIHawk, Skyvern), which ensures
 
 <div align="center">
 
-This project reflects real-world experience building and operating LLM-powered systems in production environments.
-
 **Mahdi Navaei**
 
-*Senior AI/ML Engineer | GenAI (LLM/RAG) | ML Platform/MLOps*
+Senior AI/ML Engineer | GenAI, LLM/RAG, Agentic Systems, ML Platform
 
 [![Email](https://img.shields.io/badge/Email-mahdinavaei1367%40gmail.com-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:mahdinavaei1367@gmail.com)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-mahdinavaei-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/mahdinavaei)
 [![Portfolio](https://img.shields.io/badge/Portfolio-Resume-000000?style=for-the-badge&logo=github&logoColor=white)](https://mahdinavaei.github.io/resume-site)
-
-</div>
-
----
-
-<div align="center">
-
-*Built with passion for intelligent automation*
-
-If you find this project useful, please consider giving it a star!
 
 </div>

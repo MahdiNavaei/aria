@@ -169,7 +169,7 @@ class RiskDetector:
             risk_score += 0.5
             factors.append("contains_pii")
 
-        url = context.get("url", "")
+        url = str(context.get("url") or "")
         if any(word in url.lower() for word in ["payment", "checkout", "billing"]):
             risk_score += 0.5
             factors.append("financial_context")
