@@ -24,7 +24,7 @@
 
 ## Why ARIA Exists
 
-Most agent demos stop at prompting, tool calls, or browser automation. ARIA is designed around the harder engineering problems that appear when agents must run, fail, resume, explain themselves, and stay inside safety boundaries.
+ARIA is built for the engineering problems that appear after an agent demo starts becoming a system: structured planning, tool boundaries, runtime safety, human approval, traceability, replay, and learning from execution outcomes.
 
 ARIA separates the system into explicit runtime planes:
 
@@ -36,6 +36,34 @@ ARIA separates the system into explicit runtime planes:
 - **Event & Replay**: structured events, trace ids, step ids, deterministic trace envelopes, and audit-friendly execution history.
 
 The result is not a single automation bot. It is a platform architecture for building reliable agentic workflows under real-world constraints.
+
+---
+
+## At a Glance
+
+| Area | Public v0.2 Snapshot |
+|---|---|
+| System type | Agentic AI engineering platform |
+| Architecture | Brain / Eye / Hand / Memory / Safety / Event & Replay |
+| Orchestration | LangGraph-style state-machine execution |
+| Runtime surfaces | FastAPI, WebSocket, legacy Streamlit operator UI |
+| Safety posture | HITL-first, domain-aware, PII-aware, rate-limited |
+| Public code slice | Replay trace contracts and Job Apply model restoration |
+| Verification | 96 unit tests passing; 27 integration tests passing, 7 skipped |
+| License | AGPL-3.0-or-later |
+
+---
+
+## What This Repository Demonstrates
+
+This public release is designed to show engineering judgment, not only feature count:
+
+- how an agent runtime is separated into durable system boundaries,
+- how planning and execution are kept apart through capability contracts,
+- how sensitive actions route through Safety and HITL,
+- how traces can be shaped for deterministic replay and audit,
+- how a domain plugin can sit on top of the platform instead of becoming the platform,
+- how a private research workspace can be published as a clean, reviewable public release.
 
 ---
 
@@ -63,6 +91,18 @@ The earlier public line, `v0.1.x`, covered the first foundation phases. The curr
 Some newer internal work is intentionally not published in this preview: large evidence artifacts, private run outputs, QLoRA experiments, long-horizon planning work, advanced policy-learning internals, full Next.js control-plane implementation, private traces, and environment-specific runtime data.
 
 That boundary is deliberate. The public repo is meant to be readable, reviewable, and safe to evaluate.
+
+---
+
+## Reviewer Path
+
+If you are reviewing this project quickly, start here:
+
+1. Read this README for the system story and public/private boundary.
+2. Open [Phase 12: Platform Consolidation](Docs/English/phases/phase-12-platform-consolidation.md) to understand the v0.2 architecture checkpoint.
+3. Inspect [src/aria/core/replay/trace.py](src/aria/core/replay/trace.py) for the public replay contract.
+4. Run [tests/unit/test_replay_trace.py](tests/unit/test_replay_trace.py) for the smallest verification slice.
+5. Browse [Docs/English/phases/README.md](Docs/English/phases/README.md) for the phased release map.
 
 ---
 
@@ -143,6 +183,28 @@ It introduces replay-safe contracts without exposing private traces or internal 
 - step ids are unique within a trace,
 - trace hashes are deterministic,
 - replay requests can verify integrity before execution.
+
+---
+
+## Verification Snapshot
+
+The latest local verification for this public branch passed:
+
+```text
+pytest tests/unit -q
+# 96 passed
+
+pytest tests/integration -q
+# 27 passed, 7 skipped
+
+ruff check src/aria/core/replay src/aria/plugins/job_apply/models \
+  tests/unit/test_replay_trace.py tests/unit/plugins/job_apply \
+  tests/integration/test_hand.py tests/integration/test_brain_graph.py \
+  --select E,F,I,ANN,UP,DTZ,TC,PLC,PLW
+# All checks passed
+```
+
+The skipped integration tests are service-dependent paths that require external runtime services such as Redis/Redpanda in specific configurations.
 
 ---
 
