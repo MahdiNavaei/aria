@@ -67,6 +67,18 @@ This public release is designed to show engineering judgment, not only feature c
 
 ---
 
+## Visual Overview
+
+<p align="center">
+  <img src="Docs/English/phases/ARIA AI system workflow and interface.png" alt="ARIA end-to-end workflow and operator interface" width="860"/>
+</p>
+
+<p align="center">
+  <img src="Docs/English/phases/ARIA AI system flowchart infographic.png" alt="ARIA agent runtime flowchart" width="860"/>
+</p>
+
+---
+
 ## Current Public Release
 
 This repository is a **curated public preview** of ARIA.
@@ -85,6 +97,10 @@ The earlier public line, `v0.1.x`, covered the first foundation phases. The curr
   - Pydantic validation of replay-critical invariants
 - Targeted tests for the replay contract slice.
 - A roadmap for the next public releases: observability, artifacts/replay hardening, trust governance, MCP, and control-plane UI.
+
+<p align="center">
+  <img src="Docs/English/phases/phase-11-12-public-preview.svg" alt="ARIA Phase 11 vendor integrations and Phase 12 platform consolidation additions" width="860"/>
+</p>
 
 ### What Remains Private
 
