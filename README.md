@@ -70,6 +70,10 @@ This public release is designed to show engineering judgment, not only feature c
 ## Visual Overview
 
 <p align="center">
+  <img src="Docs/English/phases/aria-v02-runtime-preview.gif" alt="ARIA v0.2 runtime preview animation" width="860"/>
+</p>
+
+<p align="center">
   <img src="Docs/English/phases/ARIA AI system workflow and interface.png" alt="ARIA end-to-end workflow and operator interface" width="860"/>
 </p>
 
