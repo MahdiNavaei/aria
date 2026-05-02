@@ -89,6 +89,8 @@ This repository is a **curated public preview** of ARIA.
 
 The earlier public line, `v0.1.x`, covered the first foundation phases. The current `v0.2` preview refreshes those foundations and publishes the architecture up to **Phase 12** without dumping the full private workspace.
 
+Release notes: [ARIA v0.2.0 Public Preview](Docs/English/releases/v0.2.0-preview.md).
+
 ### What v0.2 Publishes
 
 - Refreshed public documentation for **Phase 00 through Phase 12**.
